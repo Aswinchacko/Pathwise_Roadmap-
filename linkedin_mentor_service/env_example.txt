@@ -1,0 +1,33 @@
+# LinkedIn Mentor Scraping Service - Environment Variables
+
+# MongoDB Configuration
+MONGODB_URI=mongodb://localhost:27017
+DATABASE_NAME=pathwise
+
+# Service Configuration
+PORT=8005
+HOST=0.0.0.0
+
+# Chrome Configuration
+CHROME_HEADLESS=true
+CHROME_USER_AGENT=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+
+# Scraping Configuration
+DEFAULT_LIMIT=10
+MAX_LIMIT=20
+MIN_DELAY=2
+MAX_DELAY=5
+
+# Caching
+ENABLE_CACHE=true
+CACHE_EXPIRY_DAYS=7
+
+# Rate Limiting
+REQUESTS_PER_MINUTE=10
+REQUESTS_PER_DAY=100
+
+# Proxy (Optional)
+# PROXY_URL=http://proxy-server:port
+# USE_PROXY=false
+
+

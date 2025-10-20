@@ -1,0 +1,9 @@
+Fixed the MongoDB boolean check error!
+
+To apply the fix:
+1. Press CTRL+C in the terminal running the job agent
+2. Run: start_job_agent.bat
+3. Or just run: python job_agent_service/main.py
+
+The error "Database objects do not implement truth value testing" is now fixed.
+

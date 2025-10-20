@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Recommendation Service Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .test-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .test-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .quick-tests {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .quick-test-btn {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        
+        .quick-test-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .status {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+        
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 2px solid #bee5eb;
+        }
+        
+        .results {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .project-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .project-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .project-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .project-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .badge.difficulty {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .badge.rating {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .badge.duration {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .skills {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .skill-tag {
+            padding: 4px 10px;
+            background: #e7f3ff;
+            color: #667eea;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .json-output {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Project Recommendation Service Tester</h1>
+            <p>Test the AI-powered project recommendation microservice</p>
+        </div>
+        
+        <!-- Health Check -->
+        <div class="test-section">
+            <h2>🏥 Service Health Check</h2>
+            <button class="btn" onclick="checkHealth()">Check Health</button>
+            <div id="healthStatus" style="margin-top: 20px;"></div>
+        </div>
+        
+        <!-- Get Recommendations -->
+        <div class="test-section">
+            <h2>🤖 Get Project Recommendations</h2>
+            
+            <div class="quick-tests">
+                <span style="font-weight: 600; margin-right: 10px;">Quick Tests:</span>
+                <button class="quick-test-btn" onclick="setAim('I want to become a full-stack web developer')">Full-Stack Dev</button>
+                <button class="quick-test-btn" onclick="setAim('I\'m interested in machine learning and AI')">AI/ML</button>
+                <button class="quick-test-btn" onclick="setAim('I want to learn data visualization')">Data Viz</button>
+                <button class="quick-test-btn" onclick="setAim('I\'m a beginner looking to learn Python')">Beginner Python</button>
+                <button class="quick-test-btn" onclick="setAim('I want to build mobile applications')">Mobile Dev</button>
+            </div>
+            
+            <div class="input-group">
+                <label for="aim">Your Goal / Aim:</label>
+                <input type="text" id="aim" placeholder="e.g., I want to become a full-stack developer">
+            </div>
+            
+            <div class="input-group">
+                <label for="limit">Number of Recommendations:</label>
+                <select id="limit">
+                    <option value="3">3 projects</option>
+                    <option value="5" selected>5 projects</option>
+                    <option value="10">10 projects</option>
+                </select>
+            </div>
+            
+            <button class="btn" onclick="getRecommendations()">Get Recommendations</button>
+            
+            <div id="recommendStatus" style="margin-top: 20px;"></div>
+            <div id="recommendResults" style="margin-top: 20px;"></div>
+        </div>
+        
+        <!-- Get All Projects -->
+        <div class="test-section">
+            <h2>📚 Get All Projects</h2>
+            
+            <div class="input-group">
+                <label for="category">Filter by Category (optional):</label>
+                <select id="category">
+                    <option value="">All Categories</option>
+                    <option value="web-dev">Web Development</option>
+                    <option value="ai-ml">AI / Machine Learning</option>
+                    <option value="data-science">Data Science</option>
+                </select>
+            </div>
+            
+            <button class="btn" onclick="getAllProjects()">Get All Projects</button>
+            
+            <div id="allProjectsStatus" style="margin-top: 20px;"></div>
+            <div id="allProjectsResults" style="margin-top: 20px;"></div>
+        </div>
+        
+        <!-- Raw JSON Response -->
+        <div class="test-section">
+            <h2>📋 Raw JSON Response</h2>
+            <div id="jsonOutput" class="json-output">No data yet. Run a test above.</div>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE = 'http://localhost:5003';
+        
+        function setAim(aim) {
+            document.getElementById('aim').value = aim;
+        }
+        
+        async function checkHealth() {
+            const statusDiv = document.getElementById('healthStatus');
+            statusDiv.innerHTML = '<div class="spinner"></div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                
+                updateJsonOutput(data);
+                
+                statusDiv.innerHTML = `
+                    <div class="status success">
+                        ✅ Service is healthy!<br>
+                        AI Mode: ${data.ai_enabled ? '🤖 Enabled' : '🎯 Rule-based (fallback)'}
+                    </div>
+                `;
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    <div class="status error">
+                        ❌ Cannot connect to service!<br>
+                        Make sure the service is running on ${API_BASE}
+                    </div>
+                `;
+            }
+        }
+        
+        async function getRecommendations() {
+            const aim = document.getElementById('aim').value;
+            const limit = parseInt(document.getElementById('limit').value);
+            
+            if (!aim.trim()) {
+                alert('Please enter your goal/aim');
+                return;
+            }
+            
+            const statusDiv = document.getElementById('recommendStatus');
+            const resultsDiv = document.getElementById('recommendResults');
+            
+            statusDiv.innerHTML = '<div class="spinner"></div>';
+            resultsDiv.innerHTML = '';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/recommend`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ aim, limit })
+                });
+                
+                const data = await response.json();
+                updateJsonOutput(data);
+                
+                if (data.success) {
+                    statusDiv.innerHTML = `
+                        <div class="status success">
+                            ✅ Found ${data.total} recommendations!<br>
+                            Method: ${data.method === 'ai-powered' ? '🤖 AI-Powered' : '🎯 Rule-Based'}
+                        </div>
+                    `;
+                    
+                    resultsDiv.innerHTML = '<div class="results">' + 
+                        data.recommendations.map((project, index) => `
+                            <div class="project-card">
+                                <h3>${index + 1}. ${project.title}</h3>
+                                <p>${project.description}</p>
+                                <div class="project-meta">
+                                    <span class="badge difficulty">${project.difficulty}</span>
+                                    <span class="badge rating">⭐ ${project.rating}</span>
+                                    ${project.duration ? `<span class="badge duration">⏱️ ${project.duration}</span>` : ''}
+                                    <span class="badge">👥 ${project.students} students</span>
+                                </div>
+                                ${project.skills ? `
+                                    <div class="skills">
+                                        ${project.skills.slice(0, 5).map(skill => 
+                                            `<span class="skill-tag">${skill}</span>`
+                                        ).join('')}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('') + 
+                    '</div>';
+                } else {
+                    statusDiv.innerHTML = `
+                        <div class="status error">
+                            ❌ Error: ${data.error || 'Unknown error'}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    <div class="status error">
+                        ❌ Error: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        async function getAllProjects() {
+            const category = document.getElementById('category').value;
+            const statusDiv = document.getElementById('allProjectsStatus');
+            const resultsDiv = document.getElementById('allProjectsResults');
+            
+            statusDiv.innerHTML = '<div class="spinner"></div>';
+            resultsDiv.innerHTML = '';
+            
+            try {
+                const url = category ? 
+                    `${API_BASE}/api/projects?category=${category}` : 
+                    `${API_BASE}/api/projects`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                updateJsonOutput(data);
+                
+                if (data.success) {
+                    statusDiv.innerHTML = `
+                        <div class="status success">
+                            ✅ Found ${data.total} projects!
+                        </div>
+                    `;
+                    
+                    resultsDiv.innerHTML = '<div class="results">' + 
+                        data.projects.map((project, index) => `
+                            <div class="project-card">
+                                <h3>${index + 1}. ${project.title}</h3>
+                                <p>${project.description}</p>
+                                <div class="project-meta">
+                                    <span class="badge difficulty">${project.difficulty}</span>
+                                    <span class="badge rating">⭐ ${project.rating}</span>
+                                    ${project.duration ? `<span class="badge duration">⏱️ ${project.duration}</span>` : ''}
+                                    <span class="badge">👥 ${project.students} students</span>
+                                </div>
+                                ${project.skills ? `
+                                    <div class="skills">
+                                        ${project.skills.slice(0, 5).map(skill => 
+                                            `<span class="skill-tag">${skill}</span>`
+                                        ).join('')}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('') + 
+                    '</div>';
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    <div class="status error">
+                        ❌ Error: ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        function updateJsonOutput(data) {
+            document.getElementById('jsonOutput').textContent = 
+                JSON.stringify(data, null, 2);
+        }
+        
+        // Auto-check health on load
+        window.addEventListener('load', checkHealth);
+    </script>
+</body>
+</html>
+

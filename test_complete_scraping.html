@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources Scraping Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        h1 { color: #1e293b; margin-bottom: 30px; }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+        .test-section h3 {
+            color: #475569;
+            margin-top: 0;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            margin: 5px;
+            font-size: 14px;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .info { background: #eff6ff; color: #1d4ed8; border: 1px solid #dbeafe; }
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status.online { background: #dcfce7; color: #166534; }
+        .status.offline { background: #fef2f2; color: #dc2626; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Resources Scraping Test Dashboard</h1>
+        
+        <div class="test-section">
+            <h3>Service Status</h3>
+            <button onclick="checkHealth()">Check Health</button>
+            <div id="health-result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>🤖 Query Scraping</h3>
+            <input type="text" id="query-input" placeholder="Enter search query (e.g., React hooks)" value="React hooks tutorial">
+            <select id="domain-select">
+                <option value="">All Domains</option>
+                <option value="Frontend Development">Frontend Development</option>
+                <option value="Backend Development">Backend Development</option>
+                <option value="Data Science & AI">Data Science & AI</option>
+                <option value="Mobile Development">Mobile Development</option>
+                <option value="DevOps & Cloud">DevOps & Cloud</option>
+            </select>
+            <input type="number" id="max-results" placeholder="Max results" value="5" min="1" max="20">
+            <br>
+            <button onclick="testQueryScraping()" id="query-btn">🔍 Scrape Resources</button>
+            <div id="query-result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>🔗 URL Scraping</h3>
+            <input type="url" id="url-input" placeholder="Enter URL to scrape" value="https://react.dev/learn/state-a-components-memory" style="width: 400px;">
+            <input type="text" id="url-skill" placeholder="Skill/Topic" value="React hooks">
+            <br>
+            <button onclick="testUrlScraping()" id="url-btn">📥 Scrape URL</button>
+            <div id="url-result"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>📊 Service Information</h3>
+            <button onclick="getSources()">Get Scraping Sources</button>
+            <button onclick="getStats()">Get Statistics</button>
+            <button onclick="getResources()">Get Resources</button>
+            <div id="info-result"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8001';
+
+        async function makeRequest(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                const data = await response.json();
+                return { success: response.ok, data, status: response.status };
+            } catch (error) {
+                return { success: false, error: error.message };
+            }
+        }
+
+        function displayResult(elementId, result, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="result ${type}">${JSON.stringify(result, null, 2)}</div>`;
+        }
+
+        async function checkHealth() {
+            const result = await makeRequest('/health');
+            
+            if (result.success) {
+                displayResult('health-result', result.data, 'success');
+                updateServiceStatus('online');
+            } else {
+                displayResult('health-result', result, 'error');
+                updateServiceStatus('offline');
+            }
+        }
+
+        function updateServiceStatus(status) {
+            // Add status indicator if it doesn't exist
+            let statusEl = document.getElementById('service-status');
+            if (!statusEl) {
+                statusEl = document.createElement('span');
+                statusEl.id = 'service-status';
+                statusEl.className = 'status';
+                document.querySelector('h1').appendChild(statusEl);
+            }
+            
+            statusEl.className = `status ${status}`;
+            statusEl.textContent = status === 'online' ? 'ONLINE' : 'OFFLINE';
+        }
+
+        async function testQueryScraping() {
+            const query = document.getElementById('query-input').value;
+            const domain = document.getElementById('domain-select').value;
+            const maxResults = document.getElementById('max-results').value;
+            
+            if (!query) {
+                displayResult('query-result', { error: 'Query is required' }, 'error');
+                return;
+            }
+
+            const btn = document.getElementById('query-btn');
+            btn.disabled = true;
+            btn.textContent = '🔄 Scraping...';
+
+            const result = await makeRequest('/api/scraping/resources', {
+                method: 'POST',
+                body: JSON.stringify({
+                    query,
+                    domain: domain || undefined,
+                    maxResults: parseInt(maxResults) || 5,
+                    includeVideo: true,
+                    includeArticles: true
+                })
+            });
+
+            btn.disabled = false;
+            btn.textContent = '🔍 Scrape Resources';
+
+            if (result.success) {
+                displayResult('query-result', result.data, 'success');
+            } else {
+                displayResult('query-result', result, 'error');
+            }
+        }
+
+        async function testUrlScraping() {
+            const url = document.getElementById('url-input').value;
+            const skill = document.getElementById('url-skill').value;
+            
+            if (!url) {
+                displayResult('url-result', { error: 'URL is required' }, 'error');
+                return;
+            }
+
+            const btn = document.getElementById('url-btn');
+            btn.disabled = true;
+            btn.textContent = '🔄 Scraping...';
+
+            const result = await makeRequest('/api/scraping/url', {
+                method: 'POST',
+                body: JSON.stringify({
+                    url,
+                    skill: skill || 'General'
+                })
+            });
+
+            btn.disabled = false;
+            btn.textContent = '📥 Scrape URL';
+
+            if (result.success) {
+                displayResult('url-result', result.data, 'success');
+            } else {
+                displayResult('url-result', result, 'error');
+            }
+        }
+
+        async function getSources() {
+            const result = await makeRequest('/api/scraping/sources');
+            
+            if (result.success) {
+                displayResult('info-result', result.data, 'success');
+            } else {
+                displayResult('info-result', result, 'error');
+            }
+        }
+
+        async function getStats() {
+            const result = await makeRequest('/api/scraping/stats');
+            
+            if (result.success) {
+                displayResult('info-result', result.data, 'success');
+            } else {
+                displayResult('info-result', result, 'error');
+            }
+        }
+
+        async function getResources() {
+            const result = await makeRequest('/api/resources?limit=5');
+            
+            if (result.success) {
+                displayResult('info-result', result.data, 'success');
+            } else {
+                displayResult('info-result', result, 'error');
+            }
+        }
+
+        // Check health on page load
+        window.onload = () => {
+            checkHealth();
+        };
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap System Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        
+        .status {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .status-item {
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-item.checking {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .status-item.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .status-item.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+        }
+        
+        h2 {
+            color: #334155;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .test-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #475569;
+        }
+        
+        input, select, button {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 1rem;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        button:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .result h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .result pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        .badge.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .badge.info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .quick-link {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .quick-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Roadmap System Test</h1>
+        <p style="color: #64748b; margin-bottom: 2rem;">Test the updated roadmap system with enhanced metadata and perfect matching!</p>
+        
+        <div class="status">
+            <div class="status-item" id="apiStatus">
+                <div class="spinner"></div>
+                Checking API...
+            </div>
+            <div class="status-item" id="dbStatus">
+                <div class="spinner"></div>
+                Checking Database...
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>📝 Test Roadmap Generation</h2>
+            
+            <div class="test-item">
+                <label for="goalInput">Career Goal:</label>
+                <input type="text" id="goalInput" placeholder="e.g., Python Developer, Full Stack Developer, AI Engineer" value="Python Developer">
+                <p style="color: #64748b; font-size: 0.875rem; margin-top: 0.5rem;">
+                    Just enter your career goal - our AI will find the perfect roadmap!
+                </p>
+            </div>
+            
+            <button onclick="testRoadmapGeneration()" id="generateBtn">
+                ✨ Generate Roadmap
+            </button>
+            
+            <div id="result" style="display: none;"></div>
+        </div>
+        
+        <div class="quick-links">
+            <a href="http://localhost:5173" target="_blank" class="quick-link">
+                🎨 Open Dashboard
+            </a>
+            <a href="http://localhost:8000/docs" target="_blank" class="quick-link">
+                📚 API Documentation
+            </a>
+            <a href="http://localhost:8000/health" target="_blank" class="quick-link">
+                ❤️ Health Check
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE = 'http://localhost:8000';
+        
+        // Check API status
+        async function checkAPIStatus() {
+            const statusDiv = document.getElementById('apiStatus');
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                
+                if (data.status === 'healthy') {
+                    statusDiv.className = 'status-item success';
+                    statusDiv.innerHTML = '✅ API Running';
+                } else {
+                    throw new Error('API unhealthy');
+                }
+            } catch (error) {
+                statusDiv.className = 'status-item error';
+                statusDiv.innerHTML = '❌ API Not Running';
+            }
+        }
+        
+        // Check database status
+        async function checkDBStatus() {
+            const statusDiv = document.getElementById('dbStatus');
+            try {
+                const response = await fetch(`${API_BASE}/api/roadmap/roadmaps/domains`);
+                const data = await response.json();
+                
+                if (data.domains && data.domains.length > 0) {
+                    statusDiv.className = 'status-item success';
+                    statusDiv.innerHTML = `✅ Database (${data.domains.length} domains)`;
+                } else {
+                    throw new Error('No domains found');
+                }
+            } catch (error) {
+                statusDiv.className = 'status-item error';
+                statusDiv.innerHTML = '❌ Database Error';
+            }
+        }
+        
+        // Test roadmap generation
+        async function testRoadmapGeneration() {
+            const goal = document.getElementById('goalInput').value;
+            const resultDiv = document.getElementById('result');
+            const btn = document.getElementById('generateBtn');
+            
+            if (!goal.trim()) {
+                alert('Please enter a goal');
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.innerHTML = '<div class="spinner"></div> Generating...';
+            resultDiv.style.display = 'none';
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/roadmap/generate-roadmap`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        goal: goal,
+                        domain: null,  // Let AI find best match
+                        user_id: 'test_user'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Display result
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h3>✨ Roadmap Generated Successfully!</h3>
+                    
+                    <div style="margin: 1rem 0;">
+                        <span class="badge success">✅ ${data.difficulty || 'Intermediate'}</span>
+                        <span class="badge info">⏱️ ${data.estimated_hours || 300} hours</span>
+                        <span class="badge info">📚 ${data.domain}</span>
+                        ${data.match_score ? `<span class="badge info">✨ ${Math.round(data.match_score * 100)}% match</span>` : ''}
+                    </div>
+                    
+                    <p><strong>Title:</strong> ${data.title}</p>
+                    <p><strong>Steps:</strong> ${data.steps.length} categories</p>
+                    <p><strong>Total Skills:</strong> ${data.steps.reduce((acc, step) => acc + step.skills.length, 0)}</p>
+                    
+                    ${data.prerequisites ? `
+                        <p style="margin-top: 1rem;"><strong>📋 Prerequisites:</strong></p>
+                        <p style="color: #64748b; font-size: 0.9rem;">${data.prerequisites}</p>
+                    ` : ''}
+                    
+                    ${data.learning_outcomes ? `
+                        <p style="margin-top: 1rem;"><strong>🎯 Learning Outcomes:</strong></p>
+                        <p style="color: #64748b; font-size: 0.9rem;">${data.learning_outcomes}</p>
+                    ` : ''}
+                    
+                    <details style="margin-top: 1rem;">
+                        <summary style="cursor: pointer; font-weight: 600; color: #667eea;">View Full Response</summary>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </details>
+                `;
+                
+            } catch (error) {
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML = `
+                    <h3 style="color: #dc2626;">❌ Error</h3>
+                    <p>${error.message}</p>
+                `;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '✨ Generate Roadmap';
+            }
+        }
+        
+        // Run checks on load
+        window.addEventListener('DOMContentLoaded', () => {
+            checkAPIStatus();
+            checkDBStatus();
+        });
+    </script>
+</body>
+</html>
+

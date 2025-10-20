@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Auth Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .section { background: #f8f9f9; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        button { background: #0077cc; color: white; border: none; padding: 10px 20px; border-radius: 3px; cursor: pointer; margin: 5px; }
+        button:hover { background: #005999; }
+        .success { color: #5eba7d; font-weight: bold; }
+        .error { color: #d1383d; font-weight: bold; }
+        pre { background: #fff; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        input, textarea { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ddd; border-radius: 3px; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Quick Authentication Test</h1>
+    
+    <div class="section">
+        <h3>1. Check Current Token</h3>
+        <button onclick="checkToken()">Check Token</button>
+        <div id="tokenResult"></div>
+    </div>
+
+    <div class="section">
+        <h3>2. Login Test</h3>
+        <input type="email" id="email" placeholder="Email" value="test@example.com">
+        <input type="password" id="password" placeholder="Password" value="password123">
+        <button onclick="login()">Login</button>
+        <div id="loginResult"></div>
+    </div>
+
+    <div class="section">
+        <h3>3. Test API Call</h3>
+        <button onclick="testAPI()">Test Discussions API</button>
+        <div id="apiResult"></div>
+    </div>
+
+    <div class="section">
+        <h3>4. Test Add Comment</h3>
+        <input type="text" id="discussionId" placeholder="Discussion ID">
+        <textarea id="commentText" placeholder="Comment text" rows="3">This is a test comment</textarea>
+        <button onclick="testComment()">Add Comment</button>
+        <div id="commentResult"></div>
+    </div>
+
+    <div class="section">
+        <h3>5. Clear Token</h3>
+        <button onclick="clearToken()">Clear Token & Reload</button>
+    </div>
+
+    <script>
+        function checkToken() {
+            const token = localStorage.getItem('token');
+            const resultDiv = document.getElementById('tokenResult');
+            
+            if (!token) {
+                resultDiv.innerHTML = '<span class="error">❌ No token found</span>';
+                return;
+            }
+            
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                const isExpired = payload.exp < Date.now() / 1000;
+                
+                resultDiv.innerHTML = `
+                    <span class="success">✅ Token found</span>
+                    <pre>Length: ${token.length}
+Preview: ${token.substring(0, 50)}...
+Expires: ${new Date(payload.exp * 1000).toLocaleString()}
+Is Expired: ${isExpired ? 'Yes' : 'No'}
+User ID: ${payload.userId}</pre>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">❌ Invalid token format: ${error.message}</span>`;
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('loginResult');
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    resultDiv.innerHTML = `<span class="success">✅ Login successful!</span>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>`;
+                } else {
+                    resultDiv.innerHTML = `<span class="error">❌ Login failed: ${data.error}</span>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        async function testAPI() {
+            const token = localStorage.getItem('token');
+            const resultDiv = document.getElementById('apiResult');
+            
+            if (!token) {
+                resultDiv.innerHTML = '<span class="error">❌ No token found. Please login first.</span>';
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/discussions', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<span class="success">✅ API call successful!</span>
+                        <pre>Status: ${response.status}
+Discussions: ${data.length}
+First discussion: ${data[0]?.title || 'None'}</pre>`;
+                } else {
+                    resultDiv.innerHTML = `<span class="error">❌ API call failed: ${data.message || data.error}</span>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        async function testComment() {
+            const token = localStorage.getItem('token');
+            const discussionId = document.getElementById('discussionId').value;
+            const commentText = document.getElementById('commentText').value;
+            const resultDiv = document.getElementById('commentResult');
+            
+            if (!token) {
+                resultDiv.innerHTML = '<span class="error">❌ No token found. Please login first.</span>';
+                return;
+            }
+            
+            if (!discussionId) {
+                resultDiv.innerHTML = '<span class="error">❌ Please enter a discussion ID</span>';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`http://localhost:5000/api/discussions/${discussionId}/comments`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ text: commentText })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<span class="success">✅ Comment added successfully!</span>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>`;
+                } else {
+                    resultDiv.innerHTML = `<span class="error">❌ Failed to add comment: ${data.message || data.error}</span>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">❌ Error: ${error.message}</span>`;
+            }
+        }
+
+        function clearToken() {
+            localStorage.removeItem('token');
+            location.reload();
+        }
+
+        // Auto-check token on load
+        checkToken();
+    </script>
+</body>
+</html>

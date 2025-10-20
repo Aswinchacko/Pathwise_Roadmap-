@@ -1,0 +1,287 @@
+version: '3.8'
+
+services:
+  # ==================== DATABASE ====================
+  mongodb:
+    image: mongo:7
+    container_name: pathwise-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-changeme}
+      MONGO_INITDB_DATABASE: pathwise
+    networks:
+      - pathwise-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/pathwise --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ==================== BACKEND SERVICES ====================
+  
+  # Auth Service (Node.js) - Port 5000
+  auth-service:
+    build:
+      context: ./auth_back
+      dockerfile: Dockerfile
+    container_name: pathwise-auth
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://${MONGO_USERNAME:-admin}:${MONGO_PASSWORD:-changeme}@mongodb:27017/pathwise?authSource=admin
+      - JWT_SECRET=${JWT_SECRET}
+      - PORT=5000
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:5173}
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+      - LINKEDIN_CLIENT_ID=${LINKEDIN_CLIENT_ID}
+      - LINKEDIN_CLIENT_SECRET=${LINKEDIN_CLIENT_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - pathwise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Roadmap API (Python FastAPI) - Port 8000
+  roadmap-api:
+    build:
+      context: ./roadmap_api
+      dockerfile: Dockerfile
+    container_name: pathwise-roadmap
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URI=mongodb://${MONGO_USERNAME:-admin}:${MONGO_PASSWORD:-changeme}@mongodb:27017/pathwise?authSource=admin
+      - PORT=8000
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - pathwise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Chatbot Service (Python FastAPI) - Port 8004
+  chatbot-service:
+    build:
+      context: ./chatbot_service
+      dockerfile: Dockerfile
+    container_name: pathwise-chatbot
+    restart: always
+    ports:
+      - "8004:8004"
+    environment:
+      - MONGODB_URI=mongodb://${MONGO_USERNAME:-admin}:${MONGO_PASSWORD:-changeme}@mongodb:27017/pathwise?authSource=admin
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - PORT=8004
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - pathwise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Job Agent Service (Python FastAPI) - Port 5007
+  job-agent:
+    build:
+      context: ./job_agent_service
+      dockerfile: Dockerfile
+    container_name: pathwise-jobs
+    restart: always
+    ports:
+      - "5007:5007"
+    environment:
+      - MONGODB_URI=mongodb://${MONGO_USERNAME:-admin}:${MONGO_PASSWORD:-changeme}@mongodb:27017/pathwise?authSource=admin
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - RAPIDAPI_KEY=${RAPIDAPI_KEY}
+      - ADZUNA_APP_ID=${ADZUNA_APP_ID}
+      - ADZUNA_API_KEY=${ADZUNA_API_KEY}
+      - PORT=5007
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - pathwise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5007/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # LinkedIn Mentor Service (Python FastAPI) - Port 8006
+  mentor-service:
+    build:
+      context: ./linkedin_mentor_service
+      dockerfile: Dockerfile
+    container_name: pathwise-mentors
+    restart: always
+    ports:
+      - "8006:8006"
+    environment:
+      - MONGODB_URI=mongodb://${MONGO_USERNAME:-admin}:${MONGO_PASSWORD:-changeme}@mongodb:27017/pathwise?authSource=admin
+      - PORT=8006
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - pathwise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8006/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Project Recommendation Service (Python FastAPI) - Port 8003
+  project-service:
+    build:
+      context: ./project_recommendation_service
+      dockerfile: Dockerfile
+    container_name: pathwise-projects
+    restart: always
+    ports:
+      - "8003:8003"
+    environment:
+      - MONGODB_URI=mongodb://${MONGO_USERNAME:-admin}:${MONGO_PASSWORD:-changeme}@mongodb:27017/pathwise?authSource=admin
+      - PORT=8003
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - pathwise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Resume Parser (Python FastAPI) - Port 8007
+  resume-parser:
+    build:
+      context: ./resume_parser
+      dockerfile: Dockerfile
+    container_name: pathwise-resume
+    restart: always
+    ports:
+      - "8007:8007"
+    environment:
+      - MONGODB_URI=mongodb://${MONGO_USERNAME:-admin}:${MONGO_PASSWORD:-changeme}@mongodb:27017/pathwise?authSource=admin
+      - PORT=8007
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - pathwise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8007/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Subscription Service (Python FastAPI) - Port 8005
+  subscription-service:
+    build:
+      context: ./subscription_service
+      dockerfile: Dockerfile
+    container_name: pathwise-subscription
+    restart: always
+    ports:
+      - "8005:8005"
+    environment:
+      - MONGODB_URI=mongodb://${MONGO_USERNAME:-admin}:${MONGO_PASSWORD:-changeme}@mongodb:27017/pathwise?authSource=admin
+      - RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID}
+      - RAZORPAY_KEY_SECRET=${RAZORPAY_KEY_SECRET}
+      - PORT=8005
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - pathwise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8005/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Resources Service (Node.js) - Port 8001
+  resources-service:
+    build:
+      context: ./resources_service
+      dockerfile: Dockerfile
+    container_name: pathwise-resources
+    restart: always
+    ports:
+      - "8001:8001"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://${MONGO_USERNAME:-admin}:${MONGO_PASSWORD:-changeme}@mongodb:27017/pathwise?authSource=admin
+      - PORT=8001
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - pathwise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ==================== REVERSE PROXY ====================
+  nginx:
+    image: nginx:alpine
+    container_name: pathwise-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      - auth-service
+      - roadmap-api
+      - chatbot-service
+      - job-agent
+      - mentor-service
+      - project-service
+      - resume-parser
+      - subscription-service
+      - resources-service
+    networks:
+      - pathwise-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  mongo-data:
+    driver: local
+
+networks:
+  pathwise-network:
+    driver: bridge
+

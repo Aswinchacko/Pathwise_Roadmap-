@@ -1,0 +1,327 @@
+PATHWISE PROJECT FLOW ANALYSIS
+=====================================
+
+OVERVIEW
+--------
+PathWise is a comprehensive career development platform built as a microservices architecture with React frontend and multiple Python/Node.js backend services. The system provides personalized learning roadmaps, project recommendations, mentorship, resume parsing, and AI-powered chatbot assistance.
+
+ARCHITECTURE OVERVIEW
+---------------------
+- Frontend: React.js Dashboard (Port 5173)
+- Landing Page: Static HTML/CSS/JS
+- Backend Services: 10 microservices (Ports 5000-8005)
+- Database: MongoDB (shared across services)
+- Authentication: JWT-based with OAuth (GitHub, LinkedIn, Google)
+
+=====================================
+MAIN ENTRY POINTS
+=====================================
+
+1. FRONTEND ENTRY POINTS
+   - Landing Page: landing-page/index.html
+   - Dashboard: dashboard/index.html → dashboard/src/main.jsx → App.jsx
+
+2. BACKEND ENTRY POINTS
+   - Auth Service: auth_back/server.js (Port 5000)
+   - Resources Service: resources_service/server.js (Port 8001)
+   - Roadmap API: roadmap_api/main.py (Port 8000)
+   - Recommendation Service: recommendation_service/main.py (Port 8002)
+   - Project Recommendation: project_recommendation_service/main.py (Port 8003)
+   - Chatbot Service: chatbot_service/main.py (Port 8004)
+   - Mentor Service: mentor_recommendation_service/main.py (Port 8004)
+   - Resume Parser: resume_parser/main.py (Port 8001)
+   - Subscription Service: subscription_service/main.py (Port 8005)
+
+=====================================
+DETAILED EXECUTION FLOW
+=====================================
+
+A. USER AUTHENTICATION FLOW
+----------------------------
+Entry: landing-page/index.html
+  └── User clicks "Login/Register"
+      └── dashboard/src/pages/Login.jsx
+          └── authService.js → POST /api/auth/login
+              └── auth_back/server.js
+                  └── routes/auth.js → authController
+                      └── middleware/auth.js (JWT validation)
+                      └── models/User.js → MongoDB users collection
+                          └── Returns JWT token + user data
+                              └── Frontend stores token in localStorage
+                                  └── Redirects to /dashboard
+
+OAuth Flow (GitHub/LinkedIn):
+Entry: Login.jsx → OAuth provider
+  └── Callback: GitHubCallback.jsx/LinkedInCallback.jsx
+      └── authService.js → POST /api/auth/github|linkedin
+          └── auth_back/routes/auth.js
+              └── Validates OAuth code with provider API
+                  └── Creates/updates user in MongoDB
+                      └── Returns JWT token
+                          └── Redirects to dashboard
+
+B. DASHBOARD MAIN FLOW
+----------------------
+Entry: dashboard/src/main.jsx
+  └── App.jsx (React Router setup)
+      └── ProtectedRoute component (checks authentication)
+          └── Layout component (sidebar + header)
+              └── Route-specific page components
+
+Main Routes Flow:
+  └── /dashboard → Dashboard.jsx
+      └── dashboardService.js → Multiple API calls:
+          ├── GET /api/roadmap/roadmaps/user/{userId} (Port 8000)
+          ├── GET /api/projects/recommend (Port 8002)
+          └── GET /health (all services health check)
+
+C. ROADMAP GENERATION FLOW
+---------------------------
+Entry: /roadmap → Roadmap.jsx
+  └── User enters goal/domain
+      └── roadmapService.js → POST /api/roadmap/generate-roadmap
+          └── roadmap_api/main.py (Port 8000)
+              └── find_best_roadmap() function
+                  └── MongoDB roadmap collection query
+                      └── parse_roadmap_steps() 
+                          └── Stores user roadmap in MongoDB
+                              └── Returns structured roadmap JSON
+                                  └── Frontend displays interactive roadmap
+
+Roadmap Storage Flow:
+  └── roadmap_api/main.py
+      └── MongoDB pathwise.roadmap collection
+          ├── CSV import: cross_domain_roadmaps_520.csv → MongoDB
+          └── User roadmaps: stored with user_id reference
+
+D. PROJECT RECOMMENDATIONS FLOW
+--------------------------------
+Entry: /projects → Projects.jsx
+  └── User requests project recommendations
+      └── recommendationService.js → POST /api/recommend/projects
+          └── recommendation_service/main.py (Port 8002)
+              └── ProjectRecommendationEngine class
+                  └── ml_models.py → hybrid_recommendations()
+                      ├── Content-based filtering (TF-IDF + cosine similarity)
+                      ├── Collaborative filtering (user interactions)
+                      └── project_dataset.json (project database)
+                          └── Returns ranked project recommendations
+                              └── Frontend displays project cards with details
+
+Project-based-on-roadmap Flow:
+Entry: Completed roadmap topics
+  └── project_recommendation_service/main.py (Port 8003)
+      └── POST /api/projects/recommend
+          └── calculate_skill_match() function
+              └── Matches completed topics with project requirements
+                  └── Returns difficulty-appropriate projects
+
+E. AI CHATBOT FLOW
+------------------
+Entry: /chatbot → Chatbot.jsx
+  └── User sends message
+      └── chatbotService.js → POST /chat
+          └── chatbot_service/main.py (Port 8004)
+              └── classify_intent() → TF-IDF classification
+                  └── get_conversation_context() → MongoDB chats collection
+                      └── generate_response() → ML-powered response
+                          └── save_message() → Store in MongoDB
+                              └── Returns AI response + suggestions
+                                  └── Frontend displays chat interface
+
+Chat Management Flow:
+  ├── POST /chats/new → Create new chat session
+  ├── GET /chats/{user_id} → Get chat history
+  ├── DELETE /chats/{user_id}/{chat_id} → Delete chat
+  └── PUT /chats/{user_id}/{chat_id}/title → Update chat title
+
+F. RESOURCES & WEB SCRAPING FLOW
+---------------------------------
+Entry: /resources → Resources.jsx
+  └── User searches for learning resources
+      └── resourcesService.js → GET /api/resources
+          └── resources_service/server.js (Port 8001)
+              └── routes/resources.js
+                  └── GET /api/scraping/scrape → routes/scraping.js
+                      └── Web scraping logic (BeautifulSoup equivalent)
+                          └── Scrapes educational content from web
+                              └── Stores in MongoDB resources collection
+                                  └── Returns curated resources list
+
+G. RESUME PARSING FLOW
+----------------------
+Entry: /resume-parser → ResumeParser.jsx
+  └── User uploads resume file
+      └── resumeService.js → POST /parse (multipart/form-data)
+          └── resume_parser/main.py (Port 8001)
+              └── extract_text_from_file() → PDF/DOCX/TXT parsing
+                  └── parse_resume_text() → NLP extraction
+                      ├── extract_name(), extract_email(), extract_skills()
+                      ├── extract_experience(), extract_education()
+                      └── extract_projects(), extract_certifications()
+                          └── Stores parsed data in MongoDB resume collection
+                              └── Returns structured resume JSON
+                                  └── Frontend displays parsed resume data
+
+H. MENTOR RECOMMENDATION FLOW
+------------------------------
+Entry: /mentors → Mentors.jsx
+  └── User requests mentors for specific topics
+      └── POST /api/mentors/recommend
+          └── mentor_recommendation_service/main.py (Port 8004)
+              └── find_mentors_by_topic() → Web scraping
+                  ├── scrape_linkedin_mentors() → LinkedIn API/scraping
+                  ├── scrape_github_mentors() → GitHub API
+                  └── scrape_stackoverflow_mentors() → Stack Overflow
+                      └── calculate_mentor_relevance() → Scoring algorithm
+                          └── Returns ranked mentor profiles
+
+I. SUBSCRIPTION & PAYMENT FLOW
+-------------------------------
+Entry: Settings.jsx → Subscription section
+  └── User selects subscription plan
+      └── subscriptionService.js → POST /api/subscription/create-order
+          └── subscription_service/main.py (Port 8005)
+              └── Razorpay integration
+                  └── Creates payment order
+                      └── Frontend shows Razorpay checkout
+                          └── Payment completion callback
+                              └── POST /api/subscription/verify-payment
+                                  └── Updates user subscription in MongoDB
+                                      └── Activates premium features
+
+J. ADMIN DASHBOARD FLOW
+-----------------------
+Entry: /admin → AdminDashboard.jsx
+  └── Admin authentication check
+      └── adminService.js → Various admin endpoints
+          └── auth_back/routes/admin.js
+              ├── GET /api/admin/users → User management
+              ├── GET /api/admin/stats → System statistics
+              ├── GET /api/admin/activity → Activity logs
+              └── POST /api/admin/discussions → Community management
+                  └── MongoDB admin operations
+                      └── Returns admin dashboard data
+
+K. COMMUNITY & DISCUSSIONS FLOW
+--------------------------------
+Entry: /community → Community.jsx
+  └── User views/creates discussions
+      └── discussionService.js → Discussion CRUD operations
+          └── auth_back/routes/discussions.js
+              └── models/Discussion.js → MongoDB discussions collection
+                  ├── POST /api/discussions → Create discussion
+                  ├── GET /api/discussions → List discussions
+                  ├── PUT /api/discussions/{id} → Update discussion
+                  └── DELETE /api/discussions/{id} → Delete discussion
+
+=====================================
+INTER-SERVICE COMMUNICATION
+=====================================
+
+1. FRONTEND → BACKEND API CALLS
+   - Dashboard → All services (health checks, data fetching)
+   - Authentication service → User session management
+   - Each page → Respective microservice
+
+2. SERVICE-TO-SERVICE COMMUNICATION
+   - Project Recommendation Service → Roadmap API (user progress)
+   - Chatbot Service → Recommendation Service (suggestions)
+   - Admin Service → All services (health monitoring)
+
+3. SHARED RESOURCES
+   - MongoDB Database: pathwise
+     ├── users (auth_back)
+     ├── discussions (auth_back)
+     ├── roadmap (roadmap_api)
+     ├── chats (chatbot_service)
+     ├── resources (resources_service)
+     ├── resume (resume_parser)
+     ├── subscriptions (subscription_service)
+     └── user_interactions (recommendation_service)
+
+=====================================
+DATA FLOW PATTERNS
+=====================================
+
+1. REQUEST-RESPONSE PATTERN
+   - Most API endpoints follow REST conventions
+   - JWT token validation on protected routes
+   - JSON request/response format
+
+2. FILE UPLOAD PATTERN
+   - Resume Parser: multipart/form-data → file processing → structured data
+   - Profile pictures: similar upload pattern
+
+3. REAL-TIME PATTERN
+   - Chatbot: WebSocket-like behavior via HTTP polling
+   - Live updates in admin dashboard
+
+4. BACKGROUND PROCESSING
+   - Web scraping: Async tasks for resource collection
+   - ML model training: Periodic updates to recommendation models
+
+5. CACHING PATTERN
+   - Redis integration in resources service
+   - In-memory caching for frequently accessed data
+
+=====================================
+DEPLOYMENT & STARTUP FLOW
+=====================================
+
+1. DEVELOPMENT STARTUP
+   - MongoDB: Start local instance
+   - Backend Services: Start all Python/Node.js services on respective ports
+   - Frontend: npm run dev (Vite dev server on port 5173)
+
+2. PRODUCTION DEPLOYMENT
+   - Docker containers for each service
+   - Environment variables for service URLs and database connections
+   - Load balancer for frontend
+   - Database clustering for MongoDB
+
+3. SERVICE DEPENDENCIES
+   - All services depend on MongoDB
+   - Frontend depends on all backend services
+   - Admin dashboard aggregates data from all services
+
+=====================================
+ERROR HANDLING & MONITORING
+=====================================
+
+1. FRONTEND ERROR HANDLING
+   - Try-catch blocks in service calls
+   - User-friendly error messages
+   - Fallback UI states
+
+2. BACKEND ERROR HANDLING
+   - HTTP status codes (400, 401, 404, 500)
+   - Structured error responses
+   - Logging and monitoring
+
+3. HEALTH CHECKS
+   - /health endpoint on all services
+   - Database connection monitoring
+   - Service availability checks
+
+=====================================
+SECURITY FLOW
+=====================================
+
+1. AUTHENTICATION
+   - JWT tokens for API access
+   - OAuth integration for social login
+   - Token refresh mechanism
+
+2. AUTHORIZATION
+   - Role-based access (admin, user)
+   - Protected routes in frontend
+   - Middleware validation in backend
+
+3. DATA PROTECTION
+   - Input validation and sanitization
+   - CORS configuration
+   - Rate limiting on API endpoints
+   - Secure file upload handling
+
+This comprehensive flow analysis covers all major components and their interactions in the PathWise project architecture.

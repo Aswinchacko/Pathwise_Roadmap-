@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation Modal Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: #f8fafc;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .test-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        
+        .test-button {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .test-button:hover {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+        
+        .test-button.warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+        
+        .test-button.warning:hover {
+            background: linear-gradient(135deg, #d97706, #b45309);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+        
+        .test-button.info {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+        
+        .test-button.info:hover {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+        
+        h1 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            color: #374151;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎉 Confirmation Modal Test</h1>
+        <p>Test the new beautiful confirmation modal for roadmap deletion!</p>
+        
+        <div class="test-section">
+            <h2>🚀 How to Test</h2>
+            <p>1. Go to the Roadmap page in your dashboard</p>
+            <p>2. Click "Saved Roadmaps" to open the modal</p>
+            <p>3. Click "Delete" on any saved roadmap</p>
+            <p>4. See the beautiful confirmation modal instead of the basic alert!</p>
+        </div>
+        
+        <div class="test-section">
+            <h2>✨ Modal Features</h2>
+            <ul>
+                <li><strong>Beautiful Design:</strong> Modern, clean interface with smooth animations</li>
+                <li><strong>Contextual Information:</strong> Shows the roadmap name being deleted</li>
+                <li><strong>Loading State:</strong> Shows spinner while deleting</li>
+                <li><strong>Danger Styling:</strong> Red theme to indicate destructive action</li>
+                <li><strong>Responsive:</strong> Works on all screen sizes</li>
+                <li><strong>Accessible:</strong> Proper focus management and keyboard support</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>🎨 Visual Improvements</h2>
+            <p><strong>Before:</strong> Basic browser alert with "OK" and "Cancel"</p>
+            <div class="code-block">
+alert('Are you sure you want to delete this roadmap? This action cannot be undone.')
+            </div>
+            
+            <p><strong>After:</strong> Beautiful modal with:</p>
+            <ul>
+                <li>Trash icon with red color</li>
+                <li>Clear title "Delete Roadmap"</li>
+                <li>Specific message with roadmap name</li>
+                <li>Styled "Delete Roadmap" and "Cancel" buttons</li>
+                <li>Smooth animations and hover effects</li>
+                <li>Loading state during deletion</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔧 Technical Implementation</h2>
+            <p>The modal is implemented as a reusable component:</p>
+            <div class="code-block">
+// ConfirmationModal.jsx - Reusable modal component
+// ConfirmationModal.css - Beautiful styling
+// Roadmap.jsx - Integration with delete functionality
+            </div>
+            
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>Framer Motion animations</li>
+                <li>TypeScript-ready props</li>
+                <li>Multiple modal types (danger, warning, info)</li>
+                <li>Loading state support</li>
+                <li>Click outside to close</li>
+                <li>Escape key to close</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>📱 Responsive Design</h2>
+            <p>The modal adapts to different screen sizes:</p>
+            <ul>
+                <li><strong>Desktop:</strong> Side-by-side buttons</li>
+                <li><strong>Mobile:</strong> Stacked buttons for better touch interaction</li>
+                <li><strong>Small screens:</strong> Optimized spacing and typography</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>🎯 User Experience</h2>
+            <p><strong>Improved UX:</strong></p>
+            <ul>
+                <li>Clear visual hierarchy</li>
+                <li>Contextual information (roadmap name)</li>
+                <li>Visual feedback during loading</li>
+                <li>Consistent with app design language</li>
+                <li>Prevents accidental deletions</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>✅ Ready to Test!</h2>
+            <p>Go ahead and test the new confirmation modal by deleting a saved roadmap. You'll see a much more polished and professional experience!</p>
+        </div>
+    </div>
+</body>
+</html>

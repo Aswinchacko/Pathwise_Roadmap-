@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9f9;
+        }
+        h1 {
+            color: #242729;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border: 1px solid #d6d9dc;
+        }
+        button {
+            background: #0077cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #005999;
+        }
+        .success {
+            color: #5eba7d;
+            font-weight: bold;
+        }
+        .error {
+            color: #d1383d;
+            font-weight: bold;
+        }
+        pre {
+            background: #f8f9f9;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+        .discussion-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f9f9;
+            border-radius: 3px;
+            border-left: 3px solid #0077cc;
+        }
+        .stats {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: #6a737c;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #d6d9dc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #d6d9dc;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Community Feature - Complete Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Authentication</h2>
+        <input type="email" id="email" placeholder="Email" value="test@example.com">
+        <input type="password" id="password" placeholder="Password" value="password123">
+        <button onclick="login()">Login</button>
+        <div id="authResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Fetch All Discussions</h2>
+        <button onclick="fetchDiscussions()">Get All Discussions</button>
+        <button onclick="fetchDiscussions('Web Development')">Filter: Web Development</button>
+        <button onclick="fetchDiscussions('Data Science')">Filter: Data Science</button>
+        <div id="discussionsResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Create New Discussion</h2>
+        <input type="text" id="newTitle" placeholder="Question Title" value="How do I test API endpoints?">
+        <select id="newCategory">
+            <option>Web Development</option>
+            <option>Data Science</option>
+            <option>Career Advice</option>
+            <option>Development</option>
+            <option>Mobile Development</option>
+            <option>DevOps</option>
+        </select>
+        <textarea id="newDescription" placeholder="Detailed description" rows="4">I'm trying to test my REST API endpoints but I'm not sure what tools to use. Should I use Postman or write automated tests?</textarea>
+        <button onclick="createDiscussion()">Post Question</button>
+        <div id="createResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Add Answer/Comment</h2>
+        <input type="text" id="commentDiscussionId" placeholder="Discussion ID">
+        <textarea id="commentText" placeholder="Your answer" rows="3">Great question! I recommend using both - Postman for manual testing during development and Jest/Mocha for automated tests in your CI/CD pipeline.</textarea>
+        <button onclick="addComment()">Post Answer</button>
+        <div id="commentResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>5. Upvote Discussion</h2>
+        <input type="text" id="likeDiscussionId" placeholder="Discussion ID">
+        <button onclick="likeDiscussion()">Upvote</button>
+        <div id="likeResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>6. Get Single Discussion</h2>
+        <input type="text" id="singleDiscussionId" placeholder="Discussion ID">
+        <button onclick="getSingleDiscussion()">Get Discussion</button>
+        <div id="singleResult"></div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000/api';
+        let token = localStorage.getItem('token') || '';
+
+        if (token) {
+            document.getElementById('authResult').innerHTML = '<span class="success">✓ Already logged in</span>';
+        }
+
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const resultDiv = document.getElementById('authResult');
+
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    token = data.token;
+                    localStorage.setItem('token', token);
+                    resultDiv.innerHTML = `<span class="success">✓ Login successful!</span>
+                        <p>User: ${data.user.firstName} ${data.user.lastName}</p>`;
+                } else {
+                    resultDiv.innerHTML = `<span class="error">✗ Login failed: ${data.error}</span>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+            }
+        }
+
+        async function fetchDiscussions(category = null) {
+            const resultDiv = document.getElementById('discussionsResult');
+            resultDiv.innerHTML = 'Loading...';
+
+            try {
+                const url = category 
+                    ? `${API_URL}/discussions?category=${encodeURIComponent(category)}`
+                    : `${API_URL}/discussions`;
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `<span class="success">✓ Fetched ${data.length} discussions</span>`;
+                    
+                    if (data.length > 0) {
+                        resultDiv.innerHTML += '<div style="margin-top: 15px;">';
+                        data.slice(0, 5).forEach(disc => {
+                            resultDiv.innerHTML += `
+                                <div class="discussion-item">
+                                    <strong>${disc.title}</strong>
+                                    <p>${disc.description.substring(0, 150)}...</p>
+                                    <div class="stats">
+                                        <span>📊 ${disc.likes} votes</span>
+                                        <span>💬 ${disc.comments?.length || 0} answers</span>
+                                        <span>👁️ ${disc.views} views</span>
+                                        <span>ID: ${disc.id}</span>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        resultDiv.innerHTML += '</div>';
+                    }
+                } else {
+                    resultDiv.innerHTML = `<span class="error">✗ Failed to fetch discussions</span>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+            }
+        }
+
+        async function createDiscussion() {
+            const resultDiv = document.getElementById('createResult');
+            
+            if (!token) {
+                resultDiv.innerHTML = '<span class="error">✗ Please login first</span>';
+                return;
+            }
+
+            const title = document.getElementById('newTitle').value;
+            const category = document.getElementById('newCategory').value;
+            const description = document.getElementById('newDescription').value;
+
+            try {
+                const response = await fetch(`${API_URL}/discussions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ title, description, category })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `<span class="success">✓ Question posted successfully!</span>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>`;
+                } else {
+                    resultDiv.innerHTML = `<span class="error">✗ Failed: ${data.error}</span>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+            }
+        }
+
+        async function addComment() {
+            const resultDiv = document.getElementById('commentResult');
+            
+            if (!token) {
+                resultDiv.innerHTML = '<span class="error">✗ Please login first</span>';
+                return;
+            }
+
+            const discussionId = document.getElementById('commentDiscussionId').value;
+            const text = document.getElementById('commentText').value;
+
+            try {
+                const response = await fetch(`${API_URL}/discussions/${discussionId}/comments`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ text })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `<span class="success">✓ Answer posted successfully!</span>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>`;
+                } else {
+                    resultDiv.innerHTML = `<span class="error">✗ Failed: ${data.error}</span>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+            }
+        }
+
+        async function likeDiscussion() {
+            const resultDiv = document.getElementById('likeResult');
+            
+            if (!token) {
+                resultDiv.innerHTML = '<span class="error">✗ Please login first</span>';
+                return;
+            }
+
+            const discussionId = document.getElementById('likeDiscussionId').value;
+
+            try {
+                const response = await fetch(`${API_URL}/discussions/${discussionId}/like`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `<span class="success">✓ Upvoted! New count: ${data.likes}</span>`;
+                } else {
+                    resultDiv.innerHTML = `<span class="error">✗ Failed: ${data.error}</span>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+            }
+        }
+
+        async function getSingleDiscussion() {
+            const resultDiv = document.getElementById('singleResult');
+            const discussionId = document.getElementById('singleDiscussionId').value;
+
+            try {
+                const response = await fetch(`${API_URL}/discussions/${discussionId}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `<span class="success">✓ Discussion fetched</span>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>`;
+                } else {
+                    resultDiv.innerHTML = `<span class="error">✗ Failed: ${data.error}</span>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<span class="error">✗ Error: ${error.message}</span>`;
+            }
+        }
+
+        // Auto-fetch discussions on load
+        if (token) {
+            fetchDiscussions();
+        }
+    </script>
+</body>
+</html>
+

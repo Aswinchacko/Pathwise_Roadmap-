@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Phase Completion Frontend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f8fafc;
+        }
+        .test-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .test-button {
+            background: #4f46e5;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 0.5rem;
+        }
+        .test-button:hover {
+            background: #4338ca;
+        }
+        .result {
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .error {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Phase Completion Frontend Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Test Phase Recommendation API</h2>
+        <p>Test the phase-based recommendation endpoint directly:</p>
+        <button class="test-button" onclick="testPhaseAPI()">Test Phase API</button>
+        <div id="phase-api-result" class="result" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test Phase Completion Detection</h2>
+        <p>Simulate completing all skills in a phase to trigger recommendations:</p>
+        <button class="test-button" onclick="simulatePhaseCompletion()">Simulate Phase Completion</button>
+        <div id="phase-completion-result" class="result" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Test Different Phases</h2>
+        <p>Test various phase names to see different recommendations:</p>
+        <button class="test-button" onclick="testPhase('Design Fundamentals')">Design Fundamentals</button>
+        <button class="test-button" onclick="testPhase('Adobe Creative Suite')">Adobe Creative Suite</button>
+        <button class="test-button" onclick="testPhase('Web Development Basics')">Web Development</button>
+        <button class="test-button" onclick="testPhase('Data Science Fundamentals')">Data Science</button>
+        <div id="phase-variations-result" class="result" style="display: none;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Test Service Health</h2>
+        <p>Check if the recommendation service is running:</p>
+        <button class="test-button" onclick="checkServiceHealth()">Check Health</button>
+        <div id="health-result" class="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:5003';
+
+        async function testPhaseAPI() {
+            const resultDiv = document.getElementById('phase-api-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Testing phase API...';
+            resultDiv.className = 'result';
+
+            try {
+                const response = await fetch(`${BASE_URL}/api/recommend/phase`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        phase: 'Design Fundamentals',
+                        limit: 3
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Phase API Test Successful!\n\n` +
+                        `Phase: ${data.phase}\n` +
+                        `Method: ${data.method}\n` +
+                        `Total Projects: ${data.total}\n\n` +
+                        `Projects:\n${data.recommendations.map((p, i) => 
+                            `${i + 1}. ${p.title} (${p.difficulty})`
+                        ).join('\n')}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ API Error: ${data.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Connection Error: ${error.message}\n\nMake sure the recommendation service is running on port 5003.`;
+            }
+        }
+
+        async function simulatePhaseCompletion() {
+            const resultDiv = document.getElementById('phase-completion-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Simulating phase completion...';
+            resultDiv.className = 'result';
+
+            try {
+                // Simulate completing all skills in a phase
+                const phaseName = 'Design Fundamentals';
+                const response = await fetch(`${BASE_URL}/api/recommend/phase`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        phase: phaseName,
+                        limit: 3
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `🎉 Phase Completion Simulated!\n\n` +
+                        `Phase: ${data.phase}\n` +
+                        `Method: ${data.method}\n` +
+                        `Projects Generated: ${data.total}\n\n` +
+                        `This is what the user would see when completing a phase:\n\n` +
+                        data.recommendations.map((p, i) => 
+                            `${i + 1}. ${p.title}\n   Difficulty: ${p.difficulty}\n   Duration: ${p.duration}\n   Skills: ${p.skills.join(', ')}`
+                        ).join('\n\n');
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Error: ${data.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Error: ${error.message}`;
+            }
+        }
+
+        async function testPhase(phaseName) {
+            const resultDiv = document.getElementById('phase-variations-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = `Testing phase: ${phaseName}...`;
+            resultDiv.className = 'result';
+
+            try {
+                const response = await fetch(`${BASE_URL}/api/recommend/phase`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        phase: phaseName,
+                        limit: 2
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ ${phaseName} Test Successful!\n\n` +
+                        `Method: ${data.method}\n` +
+                        `Projects: ${data.total}\n\n` +
+                        data.recommendations.map((p, i) => 
+                            `${i + 1}. ${p.title} (${p.difficulty})`
+                        ).join('\n');
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Error: ${data.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Error: ${error.message}`;
+            }
+        }
+
+        async function checkServiceHealth() {
+            const resultDiv = document.getElementById('health-result');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Checking service health...';
+            resultDiv.className = 'result';
+
+            try {
+                const response = await fetch(`${BASE_URL}/health`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.textContent = `✅ Service is healthy!\n\n` +
+                        `Status: ${data.status}\n` +
+                        `Service: ${data.service}\n` +
+                        `AI Enabled: ${data.ai_enabled ? 'Yes' : 'No'}`;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.textContent = `❌ Service unhealthy: ${data.error || 'Unknown error'}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.textContent = `❌ Cannot connect to service: ${error.message}\n\n` +
+                    `Make sure to start the recommendation service first:\n` +
+                    `1. Run: start_project_recommendation_service.bat\n` +
+                    `2. Or run: python project_recommendation_service/main.py`;
+            }
+        }
+
+        // Auto-check health on page load
+        window.onload = function() {
+            checkServiceHealth();
+        };
+    </script>
+</body>
+</html>
