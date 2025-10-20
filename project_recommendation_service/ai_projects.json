@@ -1805,5 +1805,437 @@
     "phase": "Foundations",
     "created_at": "2025-10-18T11:11:11.300175",
     "source": "ai-generated"
+  },
+  {
+    "title": "Simple E-commerce Database",
+    "description": "Create a simple e-commerce database to store products, customers, and orders. This project will help you practice database design, schema creation, and data modeling. You will be using a database management system like MySQL or PostgreSQL.",
+    "difficulty": "beginner",
+    "skills": [
+      "database design",
+      "SQL",
+      "database schema creation"
+    ],
+    "duration": "1-2 weeks",
+    "category": "web-dev",
+    "id": 76,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "database-integration"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Database Integration",
+    "created_at": "2025-10-20T22:36:53.992689",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Real-time Chat App with Database Storage",
+    "description": "Build a real-time chat app that stores chat logs in a database. This project will help you practice using a database in a real-world application, handling concurrent access, and implementing data persistence. You will be using technologies like Node.js, Express.js, and MongoDB.",
+    "difficulty": "intermediate",
+    "skills": [
+      "real-time chat apps",
+      "database persistence",
+      "concurrent access"
+    ],
+    "duration": "2-4 weeks",
+    "category": "web-dev",
+    "id": 77,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "database-integration"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Database Integration",
+    "created_at": "2025-10-20T22:36:54.049689",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Recommendation System with Advanced Database Querying",
+    "description": "Create a recommendation system that suggests products based on user behavior and preferences. This project will help you practice advanced database querying, data analysis, and machine learning. You will be using technologies like Python, NumPy, Pandas, and a database management system like PostgreSQL.",
+    "difficulty": "advanced",
+    "skills": [
+      "advanced database querying",
+      "data analysis",
+      "machine learning"
+    ],
+    "duration": "1-2 months",
+    "category": "data-science",
+    "id": 78,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "database-integration"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Database Integration",
+    "created_at": "2025-10-20T22:36:54.117685",
+    "source": "ai-generated"
+  },
+  {
+    "title": "To-Do List App with User Authentication and Database Storage",
+    "description": "Build a web application that allows users to create, read, update, and delete (CRUD) tasks. Integrate user authentication and store task data in a database. This project will help you understand database interaction, user authentication, and web development.",
+    "difficulty": "intermediate",
+    "skills": [
+      "JavaScript",
+      "HTML/CSS",
+      "SQL",
+      "Express.js",
+      "MongoDB"
+    ],
+    "duration": "2-4 weeks",
+    "category": "web-dev",
+    "id": 79,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "database-integration"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Database Integration",
+    "created_at": "2025-10-20T22:36:54.316339",
+    "source": "ai-generated"
+  },
+  {
+    "title": "E-commerce Website with Product Database and Search Functionality",
+    "description": "Create an e-commerce website that allows users to browse, search, and purchase products. Store product data in a database and implement search functionality using a search algorithm. This project will help you understand database querying, search functionality, and web development.",
+    "difficulty": "advanced",
+    "skills": [
+      "JavaScript",
+      "HTML/CSS",
+      "SQL",
+      "Node.js",
+      "PostgreSQL",
+      "Elasticsearch"
+    ],
+    "duration": "1-2 months",
+    "category": "web-dev",
+    "id": 80,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "database-integration"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Database Integration",
+    "created_at": "2025-10-20T22:36:54.366339",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Personal Finance Manager with Budgeting and Expense Tracking",
+    "description": "Build a web or mobile application that allows users to track their expenses and create a budget. Store expense data in a database and implement data visualization using a library like D3.js. This project will help you understand database interaction, data visualization, and mobile/web development.",
+    "difficulty": "intermediate",
+    "skills": [
+      "JavaScript",
+      "HTML/CSS",
+      "SQL",
+      "React Native|Angular|Vue.js",
+      "MongoDB|Firebase"
+    ],
+    "duration": "2-4 weeks",
+    "category": "mobile-dev|web-dev",
+    "id": 81,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "database-integration"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Database Integration",
+    "created_at": "2025-10-20T22:36:54.399959",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Automated UI Testing with Selenium",
+    "description": "Build a simple web application using Python and Flask, and then create an automated UI test using Selenium WebDriver to validate user interactions and ensure the application behaves as expected.",
+    "difficulty": "intermediate",
+    "skills": [
+      "Selenium",
+      "Python",
+      "Flask",
+      "Test Automation"
+    ],
+    "duration": "1-2 weeks",
+    "category": "web-dev",
+    "id": 82,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "testing-&-quality"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Testing & Quality",
+    "created_at": "2025-10-20T22:37:20.185338",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Unit Testing with Jest and Mocking",
+    "description": "Create a simple Node.js application and implement unit tests using Jest, focusing on mocking dependencies and testing edge cases to ensure robust and reliable code.",
+    "difficulty": "intermediate",
+    "skills": [
+      "Jest",
+      "Node.js",
+      "Unit Testing",
+      "Mocking"
+    ],
+    "duration": "1-2 weeks",
+    "category": "web-dev",
+    "id": 83,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "testing-&-quality"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Testing & Quality",
+    "created_at": "2025-10-20T22:37:20.221277",
+    "source": "ai-generated"
+  },
+  {
+    "title": "End-to-End Testing with Cypress and Docker",
+    "description": "Build a complex web application using a framework like React or Angular, and then create end-to-end tests using Cypress, leveraging Docker containers for a seamless testing environment.",
+    "difficulty": "advanced",
+    "skills": [
+      "Cypress",
+      "Docker",
+      "End-to-End Testing",
+      "Containerization"
+    ],
+    "duration": "2-4 weeks",
+    "category": "web-dev",
+    "id": 84,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "testing-&-quality"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Testing & Quality",
+    "created_at": "2025-10-20T22:37:20.247793",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Automated Testing Suite for a Small Web Application",
+    "description": "Build an automated testing suite for a simple web application using a testing framework like Jest or Pytest. This project will help reinforce skills in writing unit tests, integration tests, and end-to-end tests. You will also learn about test-driven development (TDD) and behavior-driven development (BDD).",
+    "difficulty": "intermediate",
+    "skills": [
+      "Jest",
+      "Pytest",
+      "Unit Testing",
+      "Integration Testing",
+      "End-to-End Testing"
+    ],
+    "duration": "2-4 weeks",
+    "category": "web-dev",
+    "id": 85,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "testing-&-quality"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Testing & Quality",
+    "created_at": "2025-10-20T22:37:20.380972",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Static Code Analysis and Code Review",
+    "description": "Create a project that demonstrates static code analysis and code review using tools like ESLint, Prettier, or SonarQube. This project will help you learn how to write clean, readable, and maintainable code. You will also learn about code formatting, code style, and best practices.",
+    "difficulty": "beginner",
+    "skills": [
+      "ESLint",
+      "Prettier",
+      "SonarQube",
+      "Code Formatting",
+      "Code Style"
+    ],
+    "duration": "1-2 weeks",
+    "category": "web-dev",
+    "id": 86,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "testing-&-quality"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Testing & Quality",
+    "created_at": "2025-10-20T22:37:20.410421",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Bug Triage and Prioritization using Agile Methodologies",
+    "description": "Develop a project that simulates a bug tracking system using Agile methodologies like Scrum or Kanban. This project will help you learn how to identify, track, and prioritize bugs. You will also learn about the importance of continuous integration and continuous deployment (CI/CD).",
+    "difficulty": "advanced",
+    "skills": [
+      "Agile Methodologies",
+      "Scrum",
+      "Kanban",
+      "Bug Tracking",
+      "CI/CD"
+    ],
+    "duration": "1-2 months",
+    "category": "web-dev",
+    "id": 87,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "testing-&-quality"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Testing & Quality",
+    "created_at": "2025-10-20T22:37:20.430517",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Secure Password Storage Project",
+    "description": "Implement a secure password storage system using a hash function (e.g. bcrypt,argon2) and salt. This project will help you understand the importance of password hashing and salting in preventing password cracking attacks. You will build a simple user authentication system and integrate the password storage component.",
+    "difficulty": "intermediate",
+    "skills": [
+      "hashing",
+      "salting",
+      "password storage",
+      "user authentication"
+    ],
+    "duration": "2-4 weeks",
+    "category": "web-dev",
+    "id": 88,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "security-best-practices"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Security Best Practices",
+    "created_at": "2025-10-20T22:37:38.976264",
+    "source": "ai-generated"
+  },
+  {
+    "title": "OWASP Top 10 Vulnerability Scanner Project",
+    "description": "Create a vulnerability scanner to identify common web application vulnerabilities (e.g. SQL injection, Cross-Site Scripting) listed in the OWASP Top 10. You will use tools like ZAP or Burp Suite to automate the scanning process and integrate it with a web application.",
+    "difficulty": "advanced",
+    "skills": [
+      "vulnerability scanning",
+      "web application security",
+      "OWASP Top 10",
+      "ZAP or Burp Suite"
+    ],
+    "duration": "4-8 weeks",
+    "category": "web-dev",
+    "id": 89,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "security-best-practices"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Security Best Practices",
+    "created_at": "2025-10-20T22:37:39.068520",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Secure Code Review Project",
+    "description": "Conduct a code review of an open-source project (e.g. a web framework or a library) to identify security vulnerabilities and provide recommendations for improvement. This project will help you develop skills in reviewing code for security issues and creating secure code.",
+    "difficulty": "advanced",
+    "skills": [
+      "code review",
+      "secure coding practices",
+      "security vulnerability analysis"
+    ],
+    "duration": "8-12 weeks",
+    "category": "web-dev",
+    "id": 90,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "security-best-practices"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Security Best Practices",
+    "created_at": "2025-10-20T22:37:39.093926",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Basic Web Application Firewall (WAF) Configuration",
+    "description": "Configure a WAF on a web application to protect against common web attacks such as SQL injection and cross-site scripting (XSS). This project will help reinforce understanding of security best practices and hands-on experience with WAF configuration.",
+    "difficulty": "intermediate",
+    "skills": [
+      "Apache ModSecurity",
+      "OWASP Core Rule Set",
+      "Web Application Firewall"
+    ],
+    "duration": "1-2 weeks",
+    "category": "web-dev",
+    "id": 91,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "security-best-practices"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Security Best Practices",
+    "created_at": "2025-10-20T22:37:39.174361",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Penetration Testing with Burp Suite",
+    "description": "Use Burp Suite to perform penetration testing on a web application, identifying vulnerabilities and weaknesses. This project will help reinforce understanding of security best practices and hands-on experience with penetration testing and vulnerability assessment.",
+    "difficulty": "advanced",
+    "skills": [
+      "Burp Suite",
+      "Web Application Penetration Testing",
+      "Vulnerability Assessment"
+    ],
+    "duration": "2-4 weeks",
+    "category": "web-dev",
+    "id": 92,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "security-best-practices"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Security Best Practices",
+    "created_at": "2025-10-20T22:37:39.221883",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Secure Cloud Deployment with AWS IAM and CloudFormation",
+    "description": "Deploy a secure cloud infrastructure on AWS using AWS IAM and CloudFormation. This project will help reinforce understanding of security best practices and hands-on experience with cloud security, IAM, and infrastructure as code.",
+    "difficulty": "advanced",
+    "skills": [
+      "AWS IAM",
+      "AWS CloudFormation",
+      "Cloud Security"
+    ],
+    "duration": "1-2 months",
+    "category": "cloud-dev",
+    "id": 93,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "security-best-practices"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Security Best Practices",
+    "created_at": "2025-10-20T22:37:39.252560",
+    "source": "ai-generated"
   }
 ]
