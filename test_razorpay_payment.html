@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Razorpay Payment - PathWise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .status-box {
+            background: #f8f9ff;
+            border: 2px solid #e8eaff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .status-box h3 {
+            color: #6366f1;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .status-box code {
+            display: block;
+            background: white;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: #333;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+
+        .test-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f0f2ff;
+            border-radius: 12px;
+        }
+
+        .test-section h3 {
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .test-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .test-steps li {
+            counter-increment: step-counter;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #6366f1;
+            position: relative;
+        }
+
+        .test-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #6366f1;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .test-steps li strong {
+            color: #6366f1;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-details {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .card-details h4 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .card-details td {
+            padding: 0.5rem;
+            border-bottom: 1px solid #ffeaa7;
+        }
+
+        .card-details td:first-child {
+            font-weight: 600;
+            color: #856404;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #868e96 100%);
+            box-shadow: 0 4px 16px rgba(108, 117, 125, 0.4);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 6px 24px rgba(108, 117, 125, 0.5);
+        }
+
+        .success {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .error {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .warning {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+
+        .api-test {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .api-test button {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 0.5rem;
+        }
+
+        .api-test button:hover {
+            background: #4f46e5;
+        }
+
+        .api-result {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .api-result.success {
+            background: #d1fae5;
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        .api-result.error {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💳 Razorpay Payment Gateway Test</h1>
+        <p class="subtitle">Test the complete payment flow for PathWise subscriptions</p>
+
+        <div class="status-box">
+            <h3>🚀 Quick Start</h3>
+            <p>1. Start the subscription service:</p>
+            <code>start_razorpay_service.bat</code>
+            <p>2. Start the dashboard:</p>
+            <code>cd dashboard && npm run dev</code>
+            <p>3. Test the payment flow:</p>
+            <code>http://localhost:5173/projects</code>
+        </div>
+
+        <div class="api-test">
+            <h3>🔧 API Test</h3>
+            <p>Test if the subscription service is running:</p>
+            <button onclick="testAPI()">Test Subscription Service</button>
+            <button onclick="testPlans()">Get Plans</button>
+            <div id="apiResult" class="api-result" style="display: none;"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>🧪 Complete Payment Test Flow</h3>
+            <ol class="test-steps">
+                <li>
+                    <strong>Start Services</strong>
+                    <p>Run <code>start_razorpay_service.bat</code> and <code>npm run dev</code> in dashboard folder</p>
+                </li>
+                <li>
+                    <strong>Access Projects Page</strong>
+                    <p>Navigate to <code>http://localhost:5173/projects</code> - should see premium gate</p>
+                </li>
+                <li>
+                    <strong>Click Upgrade Button</strong>
+                    <p>Click "Upgrade to Premium" button to open payment modal</p>
+                </li>
+                <li>
+                    <strong>Select Plan</strong>
+                    <p>Choose Pro plan (₹799/month) or Enterprise plan (₹2999/month)</p>
+                </li>
+                <li>
+                    <strong>Click "Pay with Razorpay"</strong>
+                    <p>Razorpay checkout modal should open</p>
+                </li>
+                <li>
+                    <strong>Enter Test Card Details</strong>
+                    <div class="card-details">
+                        <h4>Test Card Information:</h4>
+                        <table>
+                            <tr>
+                                <td>Card Number:</td>
+                                <td><code>4111 1111 1111 1111</code></td>
+                            </tr>
+                            <tr>
+                                <td>CVV:</td>
+                                <td><code>123</code> (any 3 digits)</td>
+                            </tr>
+                            <tr>
+                                <td>Expiry:</td>
+                                <td><code>12/25</code> (any future date)</td>
+                            </tr>
+                            <tr>
+                                <td>Name:</td>
+                                <td>Any name</td>
+                            </tr>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <strong>Complete Payment</strong>
+                    <p>Click "Pay Now" - payment should process successfully</p>
+                </li>
+                <li>
+                    <strong>Verify Success</strong>
+                    <p>Should redirect to success page and Projects page becomes accessible</p>
+                </li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h3>🔍 Troubleshooting</h3>
+            <ul>
+                <li><strong>Service not starting:</strong> Check if port 8005 is available</li>
+                <li><strong>Razorpay not opening:</strong> Disable ad-blocker, check browser console</li>
+                <li><strong>Payment fails:</strong> Verify Razorpay keys in .env file</li>
+                <li><strong>Database not updating:</strong> Check MongoDB connection</li>
+                <li><strong>Modal positioning:</strong> Fixed - should now appear centered</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>📋 Test Checklist</h3>
+            <ul>
+                <li>✅ Subscription service running on port 8005</li>
+                <li>✅ Dashboard running on port 5173</li>
+                <li>✅ Projects page shows premium gate</li>
+                <li>✅ Payment modal opens and centers properly</li>
+                <li>✅ Razorpay checkout loads</li>
+                <li>✅ Test payment processes successfully</li>
+                <li>✅ Database updates after payment</li>
+                <li>✅ Projects page becomes accessible</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="http://localhost:5173/projects" class="btn" target="_blank">
+                Test Payment Flow →
+            </a>
+            <a href="http://localhost:8005/api/subscription/plans" class="btn btn-secondary" target="_blank">
+                Check API Status
+            </a>
+        </div>
+
+        <p style="margin-top: 2rem; font-size: 0.85rem; color: #999; text-align: center;">
+            Make sure both services are running before testing the payment flow
+        </p>
+    </div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('apiResult');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Testing...';
+            resultDiv.className = 'api-result';
+
+            try {
+                const response = await fetch('http://localhost:8005/api/subscription/plans');
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.textContent = `✅ Service is running!\n\nPlans available: ${data.length}\n\nResponse: ${JSON.stringify(data, null, 2)}`;
+                    resultDiv.className = 'api-result success';
+                } else {
+                    resultDiv.textContent = `❌ Service responded with status: ${response.status}`;
+                    resultDiv.className = 'api-result error';
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ Service not running: ${error.message}`;
+                resultDiv.className = 'api-result error';
+            }
+        }
+
+        async function testPlans() {
+            const resultDiv = document.getElementById('apiResult');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = 'Getting plans...';
+            resultDiv.className = 'api-result';
+
+            try {
+                const response = await fetch('http://localhost:8005/api/subscription/plans');
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.textContent = `📋 Available Plans:\n\n${data.map(plan => `• ${plan.name}: ₹${plan.price/100}/month`).join('\n')}`;
+                    resultDiv.className = 'api-result success';
+                } else {
+                    resultDiv.textContent = `❌ Failed to get plans: ${response.status}`;
+                    resultDiv.className = 'api-result error';
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ Error: ${error.message}`;
+                resultDiv.className = 'api-result error';
+            }
+        }
+    </script>
+</body>
+</html>

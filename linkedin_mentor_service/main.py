@@ -529,41 +529,50 @@ class LinkedInScraper:
         self.wait = None
     
     def extract_key_skills(self, goal: str, domain: str) -> List[str]:
-        """Extract key skills/technologies from roadmap goal"""
+        """Extract key skills/technologies from roadmap goal - improved to capture actual goal text"""
         # Common technology keywords by domain
         tech_keywords = {
-            'frontend': ['react', 'javascript', 'typescript', 'vue', 'angular', 'css', 'html', 'nextjs', 'redux'],
-            'backend': ['python', 'java', 'nodejs', 'express', 'django', 'flask', 'spring', 'api', 'microservices'],
-            'fullstack': ['react', 'nodejs', 'mongodb', 'express', 'javascript', 'python', 'api'],
-            'data science': ['python', 'machine learning', 'pandas', 'tensorflow', 'pytorch', 'sql', 'analytics'],
-            'mobile': ['react native', 'flutter', 'android', 'ios', 'swift', 'kotlin', 'mobile app'],
-            'devops': ['docker', 'kubernetes', 'aws', 'jenkins', 'ci/cd', 'terraform', 'ansible'],
-            'ai': ['machine learning', 'deep learning', 'tensorflow', 'pytorch', 'nlp', 'computer vision'],
-            'blockchain': ['solidity', 'ethereum', 'smart contracts', 'web3', 'cryptocurrency'],
-            'cybersecurity': ['security', 'penetration testing', 'ethical hacking', 'cybersecurity'],
-            'cloud': ['aws', 'azure', 'gcp', 'cloud computing', 'serverless']
+            'frontend': ['react', 'vue', 'angular', 'svelte', 'javascript', 'typescript', 'nextjs', 'nuxt', 'css', 'html', 'tailwind', 'sass', 'webpack', 'vite'],
+            'backend': ['python', 'java', 'nodejs', 'go', 'rust', 'php', 'ruby', 'express', 'django', 'flask', 'fastapi', 'spring', 'laravel', 'rails', 'api', 'graphql', 'rest'],
+            'fullstack': ['mern', 'mean', 'react', 'nodejs', 'mongodb', 'express', 'vue', 'angular', 'postgresql', 'mysql', 'javascript', 'typescript'],
+            'full stack': ['mern', 'mean', 'react', 'nodejs', 'mongodb', 'express', 'vue', 'angular', 'postgresql', 'mysql', 'javascript', 'typescript'],
+            'data': ['python', 'sql', 'pandas', 'numpy', 'scikit-learn', 'tensorflow', 'pytorch', 'machine learning', 'data analysis', 'tableau', 'powerbi'],
+            'mobile': ['react native', 'flutter', 'android', 'ios', 'swift', 'kotlin', 'swiftui', 'jetpack compose'],
+            'devops': ['docker', 'kubernetes', 'aws', 'azure', 'gcp', 'jenkins', 'gitlab', 'terraform', 'ansible', 'cicd'],
+            'ai': ['machine learning', 'deep learning', 'tensorflow', 'pytorch', 'keras', 'nlp', 'computer vision', 'llm', 'transformers'],
+            'blockchain': ['solidity', 'ethereum', 'web3', 'smart contracts', 'polygon', 'hardhat', 'truffle'],
+            'cloud': ['aws', 'azure', 'gcp', 'cloud', 'serverless', 'lambda', 'ec2', 's3'],
+            'game': ['unity', 'unreal', 'c++', 'c#', 'godot', 'game development'],
+            'design': ['figma', 'adobe xd', 'sketch', 'ui', 'ux', 'user experience', 'prototyping']
         }
         
         goal_lower = goal.lower()
         domain_lower = domain.lower()
         
-        # Find matching keywords from goal text
+        # Extract specific technologies mentioned in goal (prioritize actual goal text)
         extracted = []
         
-        # Add domain-specific keywords
-        for key, keywords in tech_keywords.items():
-            if key in domain_lower:
-                extracted.extend(keywords[:3])  # Take top 3 keywords
+        # First pass: Find exact technology mentions in the goal
+        for domain_key, keywords in tech_keywords.items():
+            for keyword in keywords:
+                if keyword in goal_lower and keyword not in extracted:
+                    extracted.append(keyword)
+                    if len(extracted) >= 5:  # Prioritize goal-specific keywords
+                        break
+            if len(extracted) >= 5:
                 break
         
-        # Extract specific technologies mentioned in goal
-        for key, keywords in tech_keywords.items():
-            for keyword in keywords:
-                if keyword in goal_lower:
-                    extracted.append(keyword)
+        # Second pass: Add domain-specific keywords if we don't have enough
+        if len(extracted) < 3:
+            for key, keywords in tech_keywords.items():
+                if key in domain_lower:
+                    for kw in keywords[:3]:
+                        if kw not in extracted:
+                            extracted.append(kw)
+                    break
         
-        # Remove duplicates and limit
-        extracted = list(dict.fromkeys(extracted))[:4]  # Max 4 keywords
+        # Remove duplicates and limit to top 5
+        extracted = list(dict.fromkeys(extracted))[:5]
         
         # Fallback if no specific tech found
         if not extracted:
