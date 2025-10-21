@@ -1,1515 +1,54 @@
 [
   {
-    "title": "To-Do List App",
-    "description": "Create a simple to-do list app with CRUD operations and local storage",
-    "difficulty": "Beginner",
+    "title": "Implement a To-Do List App",
+    "description": "Create a simple to-do list app using a JavaScript framework (e.g., React, Angular) to practice building a user interface, handling user input, and storing data locally or remotely.",
+    "difficulty": "advanced",
     "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Local Storage"
+      "Frontend Frameworks",
+      "Component-Based Architecture",
+      "State Management",
+      "API Integration"
     ],
-    "duration": "1 week",
+    "duration": "2-4 weeks",
     "category": "web-dev",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
     "id": 1,
-    "created_at": "2025-10-18T02:18:11.100832",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Weather API Integration",
-    "description": "Integrate a weather API to display current weather conditions and forecasts on a web page",
-    "difficulty": "Intermediate",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "API Integration",
-      "Responsive Design"
-    ],
-    "duration": "2 weeks",
-    "category": "web-dev",
     "rating": 4.5,
     "students": 0,
     "topics": [
-      "HTML",
-      "CSS",
-      "JavaScript"
+      "foundations"
     ],
-    "id": 2,
-    "created_at": "2025-10-18T02:18:11.144478",
+    "unlocked": true,
+    "saved": false,
+    "phase": "Foundations",
+    "created_at": "2025-10-21T02:21:06.584237",
     "source": "ai-generated"
   },
   {
-    "title": "E-commerce Website",
-    "description": "Build a basic e-commerce website with user authentication and payment gateway integration",
-    "difficulty": "Intermediate",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Node.js",
-      "Express"
-    ],
-    "duration": "4 weeks",
-    "category": "web-dev",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "id": 3,
-    "created_at": "2025-10-18T02:18:11.164625",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Real-time Chat Application",
-    "description": "Create a real-time chat application using WebSockets and a messaging API",
-    "difficulty": "Advanced",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "WebSockets",
-      "Socket.io",
-      "Node.js"
-    ],
-    "duration": "6 weeks",
-    "category": "web-dev",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "id": 4,
-    "created_at": "2025-10-18T02:18:11.181758",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Image Classification Model",
-    "description": "Train and deploy a basic image classification model using a deep learning framework",
-    "difficulty": "Intermediate",
+    "title": "Command Line Calculator",
+    "description": "Create a command line calculator using Python that can perform basic arithmetic operations. This project will help you apply your knowledge of data types, functions, and control structures in a real-world scenario.",
+    "difficulty": "beginner",
     "skills": [
       "Python",
-      "TensorFlow",
-      "Keras",
-      "Image Processing"
-    ],
-    "duration": "4 weeks",
-    "category": "ai-ml",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "Python",
-      "TensorFlow",
-      "Keras"
-    ],
-    "id": 5,
-    "created_at": "2025-10-18T02:18:11.199420",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Full-Stack Blogging Platform",
-    "description": "Build a full-stack blogging platform with user authentication, article publishing, and comment system",
-    "difficulty": "Advanced",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Node.js",
-      "Express",
-      "MongoDB"
-    ],
-    "duration": "8 weeks",
-    "category": "web-dev",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "id": 6,
-    "created_at": "2025-10-18T02:18:11.216940",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Image Classification with TensorFlow",
-    "description": "Build a basic image classification model using TensorFlow and Keras to classify images into different categories",
-    "difficulty": "Beginner",
-    "skills": [
-      "TensorFlow",
-      "Keras",
-      "Python",
-      "Image Processing"
-    ],
-    "duration": "2 weeks",
-    "category": "ai-ml",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "TensorFlow",
-      "Keras",
-      "Python"
-    ],
-    "id": 7,
-    "created_at": "2025-10-18T02:19:09.245975",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Web Scraping with Scrapy and Machine Learning",
-    "description": "Use Scrapy to scrape data from a website and build a basic machine learning model to predict trends in the data",
-    "difficulty": "Intermediate",
-    "skills": [
-      "Scrapy",
-      "BeautifulSoup",
-      "Pandas",
-      "Scikit-learn",
-      "Python"
-    ],
-    "duration": "3 weeks",
-    "category": "data-science",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "Scrapy",
-      "BeautifulSoup",
-      "Pandas"
-    ],
-    "id": 8,
-    "created_at": "2025-10-18T02:19:09.262971",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Recommender System with Collaborative Filtering",
-    "description": "Build a recommender system using collaborative filtering to recommend products to users based on their purchase history",
-    "difficulty": "Intermediate",
-    "skills": [
-      "NumPy",
-      "Pandas",
-      "Scikit-learn",
-      "Matplotlib",
-      "Seaborn",
-      "Python"
-    ],
-    "duration": "4 weeks",
-    "category": "ai-ml",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "NumPy",
-      "Pandas",
-      "Scikit-learn"
-    ],
-    "id": 9,
-    "created_at": "2025-10-18T02:19:09.291052",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Deep Learning with Convolutional Neural Networks",
-    "description": "Build a convolutional neural network to classify images and explore the concept of feature extraction",
-    "difficulty": "Advanced",
-    "skills": [
-      "TensorFlow",
-      "Keras",
-      "Python",
-      "Convolutional Neural Networks",
-      "Transfer Learning"
-    ],
-    "duration": "6 weeks",
-    "category": "ai-ml",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "TensorFlow",
-      "Keras",
-      "Python"
-    ],
-    "id": 10,
-    "created_at": "2025-10-18T02:19:09.312051",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Natural Language Processing with Sentiment Analysis",
-    "description": "Build a natural language processing model to analyze the sentiment of text data and predict the emotions of users",
-    "difficulty": "Advanced",
-    "skills": [
-      "NLTK",
-      "spaCy",
-      "Scikit-learn",
-      "TensorFlow",
-      "Python",
-      "NLP"
-    ],
-    "duration": "8 weeks",
-    "category": "ai-ml",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "NLTK",
-      "spaCy",
-      "Scikit-learn"
-    ],
-    "id": 11,
-    "created_at": "2025-10-18T02:19:09.332055",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Real-Time Object Detection with YOLO",
-    "description": "Build a real-time object detection system using YOLO to detect objects in images and videos",
-    "difficulty": "Advanced",
-    "skills": [
-      "OpenCV",
-      "TensorFlow",
-      "Keras",
-      "YOLO",
-      "Python",
-      "Computer Vision"
-    ],
-    "duration": "10 weeks",
-    "category": "ai-ml",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "OpenCV",
-      "TensorFlow",
-      "Keras"
-    ],
-    "id": 12,
-    "created_at": "2025-10-18T02:19:09.354576",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Simple Icon Design",
-    "description": "Design a set of 5 icons using various design tools like Sketch or Figma, applying color theory and typography principles. This project helps reinforce understanding of visual elements, composition, and user experience.",
-    "difficulty": "beginner",
-    "skills": [
-      "user experience design",
-      "color theory",
-      "typography",
-      "icon design"
+      "Functions",
+      "Data Types"
     ],
     "duration": "1-2 weeks",
-    "category": "design",
-    "id": 13,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:41:35.622080",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Personal Branding Kit",
-    "description": "Create a comprehensive branding kit for a fictional company, including a logo, business card, letterhead, and social media assets. This project applies skills in typography, color theory, and composition to create a cohesive visual identity.",
-    "difficulty": "intermediate",
-    "skills": [
-      "logo design",
-      "typography",
-      "color theory",
-      "composition"
-    ],
-    "duration": "2-4 weeks",
-    "category": "design",
-    "id": 14,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:41:35.673781",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Mobile App Wireframes",
-    "description": "Design wireframes for a mobile app using tools like Sketch or Figma, applying principles of user experience and user interface design. This project helps reinforce understanding of layout, navigation, and visual hierarchy.",
-    "difficulty": "advanced",
-    "skills": [
-      "user experience design",
-      "user interface design",
-      "wireframing",
-      "mobile app design"
-    ],
-    "duration": "1-2 months",
-    "category": "design",
-    "id": 15,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:41:35.788656",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Personal Branding Website",
-    "description": "Create a visually appealing personal website showcasing your design skills, using a design framework such as Bootstrap or Tailwind CSS. This project will help you apply your knowledge of designing user interfaces, color theory, and typography.",
-    "difficulty": "beginner",
-    "skills": [
-      "HTML",
-      "CSS",
-      "Design Principles",
-      "User Interface Design"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 16,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:41:48.103542",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Mobile App Wireframing",
-    "description": "Design a mobile app for a fictional company, focusing on wireframing and low-fidelity prototyping. This project will help you apply your knowledge of user flow, screen layout, and interaction design.",
-    "difficulty": "intermediate",
-    "skills": [
-      "Sketch",
-      "Adobe XD",
-      "Wireframing",
-      "Interaction Design"
-    ],
-    "duration": "2-4 weeks",
-    "category": "design",
-    "id": 17,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:41:48.116544",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Case Study Presentation",
-    "description": "Create a presentation showcasing a design case study, using a design thinking approach to solve a real-world problem. This project will help you apply your knowledge of design principles, user research, and visual storytelling.",
-    "difficulty": "advanced",
-    "skills": [
-      "Microsoft PowerPoint",
-      "Google Slides",
-      "Design Thinking",
-      "Visual Storytelling"
-    ],
-    "duration": "1-2 months",
-    "category": "design",
-    "id": 18,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:41:48.134558",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Typography Exercise",
-    "description": "Create a series of typographic systems using different font combinations, sizes, and styles. This project will help reinforce the understanding of typography principles, balance, contrast, and hierarchy.",
-    "difficulty": "beginner",
-    "skills": [
-      "typography",
-      "layout",
-      "visual design"
-    ],
-    "duration": "1-2 weeks",
-    "category": "design",
-    "id": 19,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:42:06.589856",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Color Palette Creation",
-    "description": "Design a color palette for a fictional brand or product. This project will apply the skills learned in color theory, harmony, and contrast. You'll need to create a cohesive palette that communicates the brand's identity.",
-    "difficulty": "intermediate",
-    "skills": [
-      "color theory",
-      "color palette creation",
-      "branding"
-    ],
-    "duration": "2-4 weeks",
-    "category": "design",
-    "id": 20,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:42:06.611475",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Visual Identity Design",
-    "description": "Create a comprehensive visual identity for a real-world brand or product. This project will require you to apply all the skills learned in the design fundamentals phase, including typography, color theory, layout, and visual design principles.",
-    "difficulty": "advanced",
-    "skills": [
-      "visual design",
-      "branding",
-      "typography",
-      "color theory"
-    ],
-    "duration": "1-2 months",
-    "category": "design",
-    "id": 21,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:42:06.629478",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Design System Documentation",
-    "description": "Create a design system documentation that outlines the design principles, color palette, typography, and spacing for a fictional or real company. This project will help reinforce skills learned in the Design Fundamentals phase, such as understanding design principles, typography, and color theory.",
-    "difficulty": "intermediate",
-    "skills": [
-      "design principles",
-      "color theory",
-      "typography"
-    ],
-    "duration": "1-2 weeks",
-    "category": "design",
-    "id": 22,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:42:26.917618",
-    "source": "ai-generated"
-  },
-  {
-    "title": "UI Kit Creation",
-    "description": "Design and create a UI kit for a specific type of application (e.g., mobile app, web app, or desktop application). This project will help apply skills learned in the Design Fundamentals phase, such as understanding user interface design, visual hierarchy, and layout.",
-    "difficulty": "intermediate",
-    "skills": [
-      "user interface design",
-      "visual hierarchy",
-      "layout"
-    ],
-    "duration": "2-4 weeks",
-    "category": "design",
-    "id": 23,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:42:26.936628",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Design a Mobile App",
-    "description": "Design a mobile app for a real-world problem or scenario. This project will help reinforce skills learned in the Design Fundamentals phase, such as understanding user experience design, user research, and usability testing.",
-    "difficulty": "advanced",
-    "skills": [
-      "user experience design",
-      "user research",
-      "usability testing"
-    ],
-    "duration": "1-2 months",
-    "category": "design",
-    "id": 24,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:42:26.954149",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Design System Creation",
-    "description": "Create a comprehensive design system for a fictional company using Figma or Sketch. This project will help reinforce understanding of design principles, color theory, typography, and layout.",
-    "difficulty": "intermediate",
-    "skills": [
-      "Figma/Sketch",
-      "Design Principles",
-      "Color Theory",
-      "Typography",
-      "Layout"
-    ],
-    "duration": "2-4 weeks",
-    "category": "design",
-    "id": 25,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:42:41.554958",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Branding Identity Kit",
-    "description": "Develop a branding identity kit for a new startup, including a logo, color palette, typography, and icon set. This project will help apply skills learned in the Design Fundamentals phase, such as understanding brand identity and visual hierarchy.",
-    "difficulty": "beginner",
-    "skills": [
-      "Logo Design",
-      "Color Palette",
-      "Typography",
-      "Icon Design"
-    ],
-    "duration": "1-2 weeks",
-    "category": "design",
-    "id": 26,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:42:41.575691",
-    "source": "ai-generated"
-  },
-  {
-    "title": "UI Kit for a Web Application",
-    "description": "Create a UI kit for a web application using a design tool like Figma or Sketch. This project will help reinforce understanding of UI components, layout, and responsiveness.",
-    "difficulty": "advanced",
-    "skills": [
-      "Figma/Sketch",
-      "UI Components",
-      "Layout",
-      "Responsiveness"
-    ],
-    "duration": "1-2 months",
-    "category": "design",
-    "id": 27,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "design-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Design Fundamentals",
-    "created_at": "2025-10-18T02:42:41.591263",
-    "source": "ai-generated"
-  },
-  {
-    "title": "To-Do List App",
-    "description": "Build a simple to-do list app with CRUD operations using JavaScript and local storage",
-    "difficulty": "Beginner",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Responsive Design"
-    ],
-    "duration": "2 weeks",
-    "category": "web-dev",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "id": 28,
-    "created_at": "2025-10-18T02:48:41.788326",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Weather API Integration",
-    "description": "Integrate a weather API with a simple web app to display current weather and forecasts",
-    "difficulty": "Beginner",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "API Integration",
-      "Weather APIs"
-    ],
-    "duration": "2 weeks",
-    "category": "web-dev",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "id": 29,
-    "created_at": "2025-10-18T02:48:41.810334",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Blog Website with User Authentication",
-    "description": "Build a simple blog website with user authentication using Node.js, Express, and MongoDB",
-    "difficulty": "Intermediate",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Node.js",
-      "Express",
-      "MongoDB"
-    ],
-    "duration": "4 weeks",
-    "category": "web-dev",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "id": 30,
-    "created_at": "2025-10-18T02:48:41.837863",
-    "source": "ai-generated"
-  },
-  {
-    "title": "E-commerce Website with Payment Gateway",
-    "description": "Build a simple e-commerce website with payment gateway integration using React, Node.js, and Stripe",
-    "difficulty": "Intermediate",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Node.js",
-      "Stripe API"
-    ],
-    "duration": "6 weeks",
-    "category": "web-dev",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "id": 31,
-    "created_at": "2025-10-18T02:48:41.866414",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Chatbot with Natural Language Processing",
-    "description": "Build a simple chatbot using Node.js, Express, and Dialogflow with natural language processing capabilities",
-    "difficulty": "Advanced",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Node.js",
-      "Express",
-      "Dialogflow API"
-    ],
-    "duration": "8 weeks",
-    "category": "ai-ml",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "id": 32,
-    "created_at": "2025-10-18T02:48:41.900761",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Real-Time Dashboard with Data Visualization",
-    "description": "Build a real-time dashboard using React, Node.js, and Chart.js to display interactive charts and graphs",
-    "difficulty": "Advanced",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "React",
-      "Node.js",
-      "Chart.js API"
-    ],
-    "duration": "10 weeks",
-    "category": "web-dev",
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "id": 33,
-    "created_at": "2025-10-18T02:48:41.927763",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Simple Web Application using React",
-    "description": "Build a basic web application using React, incorporating a login system, user profiles, and a dashboard. This project will help you understand how to set up React, create components, and manage state.",
-    "difficulty": "intermediate",
-    "skills": [
-      "React",
-      "JavaScript",
-      "HTML/CSS"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 34,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "frameworks"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Frameworks",
-    "created_at": "2025-10-18T03:04:56.233564",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Build a RESTful API using Django",
-    "description": "Create a RESTful API using Django, allowing users to interact with a database of books. This project will help you understand how to set up a Django project, create API endpoints, and handle database interactions.",
-    "difficulty": "advanced",
-    "skills": [
-      "Django",
-      "Python",
-      "SQL"
-    ],
-    "duration": "4-6 weeks",
-    "category": "web-dev",
-    "id": 35,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "frameworks"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Frameworks",
-    "created_at": "2025-10-18T03:04:56.257557",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Develop a Full-Stack Application using Angular and Node.js",
-    "description": "Build a full-stack application using Angular for the frontend and Node.js for the backend, incorporating authentication, user management, and real-time updates. This project will help you understand how to set up a full-stack application, handle authentication, and implement real-time updates.",
-    "difficulty": "advanced",
-    "skills": [
-      "Angular",
-      "Node.js",
-      "Express.js"
-    ],
-    "duration": "8-12 weeks",
-    "category": "web-dev",
-    "id": 36,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "frameworks"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Frameworks",
-    "created_at": "2025-10-18T03:04:56.275558",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Simple Blog Website with Bootstrap",
-    "description": "Build a basic blog website using Bootstrap, a popular front-end framework. This project will help reinforce your understanding of how to structure and style a website using CSS and HTML, while also introducing you to the world of front-end frameworks.",
-    "difficulty": "beginner",
-    "skills": [
-      "HTML",
-      "CSS",
-      "Bootstrap"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 37,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "frameworks"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Frameworks",
-    "created_at": "2025-10-18T03:04:56.668469",
-    "source": "ai-generated"
-  },
-  {
-    "title": "CRUD Application with Django",
-    "description": "Create a simple CRUD (Create, Read, Update, Delete) application using Django, a high-level Python web framework. This project will help you apply your knowledge of frameworks to build a scalable and maintainable web application, while also introducing you to the world of back-end frameworks.",
-    "difficulty": "intermediate",
-    "skills": [
-      "Python",
-      "Django",
-      "SQL"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 38,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "frameworks"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Frameworks",
-    "created_at": "2025-10-18T03:04:56.694620",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Real-time Chat Application with Socket.IO and Express.js",
-    "description": "Build a real-time chat application using Socket.IO and Express.js, a popular Node.js web framework. This project will help you apply your knowledge of frameworks to build a scalable and real-time web application, while also introducing you to the world of Node.js and web sockets.",
-    "difficulty": "advanced",
-    "skills": [
-      "JavaScript",
-      "Node.js",
-      "Express.js",
-      "Socket.IO"
-    ],
-    "duration": "1-2 months",
-    "category": "web-dev",
-    "id": 39,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "frameworks"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Frameworks",
-    "created_at": "2025-10-18T03:04:56.713642",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Responsive Webpage Design",
-    "description": "Create a responsive webpage that adapts to different screen sizes and devices. This project will help apply skills in CSS layouts, media queries, and responsive design principles.",
-    "difficulty": "intermediate",
-    "skills": [
-      "CSS Grid",
-      "Flexbox",
-      "Media Queries",
-      "Responsive Design"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 40,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "styling-&-ux"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Styling & UX",
-    "created_at": "2025-10-18T03:05:27.144649",
-    "source": "ai-generated"
-  },
-  {
-    "title": "UI Kit Design",
-    "description": "Design a UI kit with reusable components, such as buttons, forms, and navigation. This project will help apply skills in design systems, component-based design, and UI design principles.",
-    "difficulty": "advanced",
-    "skills": [
-      "Sketch",
-      "Figma",
-      "Adobe XD",
-      "UI Design Systems"
-    ],
-    "duration": "1-2 months",
-    "category": "design",
-    "id": 41,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "styling-&-ux"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Styling & UX",
-    "created_at": "2025-10-18T03:05:27.161855",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Accessibility Audit",
-    "description": "Conduct an accessibility audit on an existing website, identifying areas for improvement. This project will help apply skills in accessibility principles, semantic HTML, and ARIA attributes.",
-    "difficulty": "beginner",
-    "skills": [
-      "Semantic HTML",
-      "ARIA Attributes",
-      "Accessibility Principles"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 42,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "styling-&-ux"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Styling & UX",
-    "created_at": "2025-10-18T03:05:27.179405",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Design a Personal Website",
-    "description": "Create a visually appealing personal website showcasing your skills and experience in styling and UX. Implement a responsive design using CSS Grid or Flexbox, and integrate a navigation menu. Use a UI library such as Tailwind CSS to speed up the development process.",
-    "difficulty": "intermediate",
-    "skills": [
-      "CSS Grid",
-      "Flexbox",
-      "Responsive Design",
-      "UI Library"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 43,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "styling-&-ux"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Styling & UX",
-    "created_at": "2025-10-18T03:05:27.323117",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Build a Landing Page for a Product Launch",
-    "description": "Design and develop a landing page for a product launch, incorporating a hero section, features section, and call-to-action. Utilize CSS animations and transitions to enhance the user experience. Implement accessibility features such as screen reader support and high contrast mode.",
-    "difficulty": "advanced",
-    "skills": [
-      "CSS Animations",
-      "Transitions",
-      "Accessibility",
-      "Front-end Frameworks"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 44,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "styling-&-ux"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Styling & UX",
-    "created_at": "2025-10-18T03:05:27.347119",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Create a Custom UI Kit for a Mobile App",
-    "description": "Develop a custom UI kit for a mobile app, focusing on consistent branding and user experience. Create a set of reusable UI components using a design system, and integrate them into a mobile app template. Use a UI framework such as React Native to speed up the development process.",
-    "difficulty": "advanced",
-    "skills": [
-      "Design System",
-      "UI Frameworks",
-      "Mobile App Development",
-      "Custom UI Components"
-    ],
-    "duration": "1-2 months",
-    "category": "mobile-dev",
-    "id": 45,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "styling-&-ux"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Styling & UX",
-    "created_at": "2025-10-18T03:05:27.365117",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Automated Testing Suite",
-    "description": "Create an automated testing suite for a simple web application using a testing framework like Jest or Pytest. This project focuses on writing unit tests, integration tests, and end-to-end tests to ensure the application's functionality and stability.",
-    "difficulty": "intermediate",
-    "skills": [
-      "testing",
-      "jest",
-      "pytest",
-      "unit testing",
-      "integration testing"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 46,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "testing-&-tooling"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Tooling",
-    "created_at": "2025-10-18T03:10:53.404306",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Webinar Recording Analysis",
-    "description": "Develop a tool to analyze and visualize webinar recordings using a media processing library like FFmpeg or OpenCV. This project involves working with audio and video files, extracting relevant data, and creating visualizations to help presenters improve their content.",
-    "difficulty": "advanced",
-    "skills": [
-      "media processing",
-      "ffmpeg",
-      "opencv",
-      "data analysis",
-      "visualization"
-    ],
-    "duration": "1-2 months",
-    "category": "web-dev",
-    "id": 47,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "testing-&-tooling"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Tooling",
-    "created_at": "2025-10-18T03:10:53.423711",
-    "source": "ai-generated"
-  },
-  {
-    "title": "CI/CD Pipeline Setup",
-    "description": "Set up a Continuous Integration and Continuous Deployment (CI/CD) pipeline using tools like Jenkins, GitLab CI/CD, or CircleCI. This project focuses on automating testing, building, and deployment processes to ensure a smooth and efficient development workflow.",
-    "difficulty": "beginner",
-    "skills": [
-      "ci/cd",
-      "jenkins",
-      "gitlab-ci",
-      "circleci",
-      "continuous integration"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 48,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "testing-&-tooling"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Tooling",
-    "created_at": "2025-10-18T03:10:53.446755",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Unit Test Automation",
-    "description": "Build a comprehensive unit test suite for a small web application using a testing framework such as Jest or Pytest. This project will help reinforce skills in writing unit tests, mocking dependencies, and integrating tests with a continuous integration pipeline.",
-    "difficulty": "intermediate",
-    "skills": [
-      "unit testing",
-      "test-driven development",
-      "jest",
-      "pytest"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 49,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "testing-&-tooling"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Tooling",
-    "created_at": "2025-10-18T03:10:53.626169",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Integration Test with a CI/CD Pipeline",
-    "description": "Create an integration test for a web application using a tool like Cypress or Selenium. Integrate the test with a CI/CD pipeline using Jenkins, GitLab CI/CD, or CircleCI. This project will demonstrate skills in integration testing, CI/CD pipeline configuration, and version control.",
-    "difficulty": "advanced",
-    "skills": [
-      "integration testing",
-      "cypress",
-      "selenium",
-      "jenkins",
-      "gitlab ci/cd",
-      "circleci"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 50,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "testing-&-tooling"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Tooling",
-    "created_at": "2025-10-18T03:10:53.646695",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Test-Driven Development with a Mocking Library",
-    "description": "Implement a feature of a web application using Test-Driven Development (TDD) and a mocking library like Mockito or Moq. This project will solidify skills in writing tests before code, using mocking libraries to isolate dependencies, and writing clean, testable code.",
-    "difficulty": "intermediate",
-    "skills": [
-      "test-driven development",
-      "mocking",
-      "mockito",
-      "moq"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 51,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "testing-&-tooling"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Tooling",
-    "created_at": "2025-10-18T03:10:53.665710",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Static Website Deployment",
-    "description": "Deploy a basic static website to a cloud platform such as AWS S3 or Google Cloud Storage. This project will help reinforce understanding of deployment strategies, version control, and continuous integration.",
-    "difficulty": "beginner",
-    "skills": [
-      "AWS S3",
-      "Google Cloud Storage",
-      "GitHub Pages",
-      "Git",
-      "Jenkins or CircleCI"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 52,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "deployment"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Deployment",
-    "created_at": "2025-10-18T03:28:53.112112",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Dockerized Microservice Deployment",
-    "description": "Deploy a simple microservice to a containerization platform such as Docker Hub or AWS Elastic Container Service. This project will help reinforce understanding of containerization, orchestration, and deployment strategies.",
-    "difficulty": "intermediate",
-    "skills": [
-      "Docker",
-      "Kubernetes",
-      "Docker Compose",
-      "AWS Elastic Container Service"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 53,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "deployment"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Deployment",
-    "created_at": "2025-10-18T03:28:53.138985",
-    "source": "ai-generated"
-  },
-  {
-    "title": "CI/CD Pipeline for a Full-Stack Application",
-    "description": "Deploy a full-stack application to a cloud platform such as AWS or Google Cloud, and set up a CI/CD pipeline using tools like Jenkins or CircleCI. This project will help reinforce understanding of deployment strategies, continuous integration, and continuous delivery.",
-    "difficulty": "advanced",
-    "skills": [
-      "AWS or Google Cloud",
-      "Jenkins or CircleCI",
-      "Git",
-      "Docker",
-      "Kubernetes"
-    ],
-    "duration": "1-2 months",
-    "category": "web-dev",
-    "id": 54,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "deployment"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Deployment",
-    "created_at": "2025-10-18T03:28:53.168481",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Deploy a Static Website with GitHub Pages",
-    "description": "In this project, you will deploy a static website using GitHub Pages. You will learn how to create a repository, add files, configure GitHub Pages settings, and link to a custom domain. This project applies the skills learned in the Deployment phase, focusing on continuous integration and continuous deployment (CI/CD) pipelines.",
-    "difficulty": "beginner",
-    "skills": [
-      "GitHub",
-      "CI/CD pipelines",
-      "static website deployment"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 55,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "deployment"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Deployment",
-    "created_at": "2025-10-18T03:28:53.540435",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Deploy a Containerized Application with Docker and Kubernetes",
-    "description": "This project involves deploying a containerized application using Docker and Kubernetes. You will learn how to create a Dockerfile, build and push an image to a registry, and deploy it to a Kubernetes cluster. This project reinforces the skills learned in the Deployment phase, focusing on containerization and orchestration.",
-    "difficulty": "intermediate",
-    "skills": [
-      "Docker",
-      "Kubernetes",
-      "containerization"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 56,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "deployment"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Deployment",
-    "created_at": "2025-10-18T03:28:53.560068",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Set Up a Continuous Integration and Continuous Deployment (CI/CD) Pipeline for a Microservices Application",
-    "description": "In this project, you will set up a CI/CD pipeline for a microservices application using a tool like Jenkins or GitHub Actions. You will learn how to automate testing, building, and deployment of multiple services, and how to use a CI/CD pipeline to ensure reliable and efficient deployment of the application. This project applies the skills learned in the Deployment phase, focusing on automation and reliability.",
-    "difficulty": "advanced",
-    "skills": [
-      "CI/CD pipelines",
-      "microservices",
-      "Jenkins or GitHub Actions"
-    ],
-    "duration": "1-2 months",
-    "category": "web-dev",
-    "id": 57,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "deployment"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Deployment",
-    "created_at": "2025-10-18T03:28:53.581117",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Personal Finance Tracker",
-    "description": "Build a command-line-based personal finance tracker that allows users to add, remove, and view expenses. This project helps reinforce skills in data structures (lists, dictionaries), control structures (if-else, loops), functions, and file input/output. It's a practical application of Python fundamentals.",
-    "difficulty": "beginner",
-    "skills": [
-      "lists",
-      "dictionaries",
-      "functions",
-      "file I/O"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 58,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "python-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Python Fundamentals",
-    "created_at": "2025-10-18T04:00:31.977329",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Rock, Paper, Scissors Game",
-    "description": "Create a console-based Rock, Paper, Scissors game that allows users to play against the computer. This project helps reinforce skills in functions, control structures, and data types. It's a fun and interactive way to practice Python fundamentals.",
-    "difficulty": "intermediate",
-    "skills": [
-      "functions",
-      "control structures",
-      "data types"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 59,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "python-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Python Fundamentals",
-    "created_at": "2025-10-18T04:00:32.003972",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Mad Libs Story Generator",
-    "description": "Build a program that generates a Mad Libs-style story based on user input. This project helps reinforce skills in strings, functions, and data structures. It's a creative way to practice Python fundamentals and have fun with wordplay.",
-    "difficulty": "intermediate",
-    "skills": [
-      "strings",
-      "functions",
-      "data structures"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 60,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "python-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Python Fundamentals",
-    "created_at": "2025-10-18T04:00:32.026951",
-    "source": "ai-generated"
-  },
-  {
-    "title": "To-Do List App",
-    "description": "Build a simple command-line based to-do list app that allows users to create, read, update and delete tasks. This project will help reinforce your understanding of Python data structures, file operations, and user input handling.",
-    "difficulty": "beginner",
-    "skills": [
-      "Data Structures",
-      "File Operations",
-      "User Input Handling"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 61,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "python-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Python Fundamentals",
-    "created_at": "2025-10-18T04:00:32.326452",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Hangman Game",
-    "description": "Create a console-based Hangman game where the user has to guess a randomly chosen word by suggesting letters. This project will help you practice your understanding of Python's string manipulation, random number generation, and game development concepts.",
-    "difficulty": "intermediate",
-    "skills": [
-      "String Manipulation",
-      "Random Number Generation",
-      "Game Development"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 62,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "python-fundamentals"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Python Fundamentals",
-    "created_at": "2025-10-18T04:00:32.352477",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Personal Finance Tracker",
-    "description": "Design a program that allows users to track their expenses, income, and savings. This project will help you apply your knowledge of Python classes, object-oriented programming, and file operations to build a real-world application.",
-    "difficulty": "advanced",
-    "skills": [
-      "Object-Oriented Programming",
-      "File Operations",
-      "Database Management"
-    ],
-    "duration": "2-4 weeks",
     "category": "other",
-    "id": 63,
+    "id": 2,
     "rating": 4.5,
     "students": 0,
     "topics": [
-      "python-fundamentals"
+      "foundations"
     ],
     "unlocked": true,
     "saved": false,
-    "phase": "Python Fundamentals",
-    "created_at": "2025-10-18T04:00:32.383023",
+    "phase": "Foundations",
+    "created_at": "2025-10-21T02:21:06.585242",
     "source": "ai-generated"
   },
   {
     "title": "To-Do List App",
-    "description": "Build a simple to-do list application that allows users to add, remove, and edit tasks. This project will help reinforce skills in HTML, CSS, and JavaScript, with a focus on event handling and DOM manipulation.",
+    "description": "Build a simple to-do list application that allows users to add, delete, and edit tasks. This project will reinforce your understanding of HTML, CSS, and JavaScript fundamentals, as well as practicing DOM manipulation and event handling.",
     "difficulty": "beginner",
     "skills": [
       "HTML",
@@ -1520,7 +59,7 @@
     ],
     "duration": "1-2 weeks",
     "category": "web-dev",
-    "id": 64,
+    "id": 3,
     "rating": 4.5,
     "students": 0,
     "topics": [
@@ -1529,23 +68,23 @@
     "unlocked": true,
     "saved": false,
     "phase": "Frontend Core",
-    "created_at": "2025-10-18T11:10:43.571352",
+    "created_at": "2025-10-21T02:22:48.640278",
     "source": "ai-generated"
   },
   {
     "title": "Personal Portfolio Website",
-    "description": "Create a personal portfolio website that showcases your skills and experience. This project will help reinforce skills in building a responsive layout, using CSS preprocessors like Sass, and working with image and media assets.",
+    "description": "Create a personal portfolio website that showcases your skills and projects. This project will help you apply your knowledge of CSS preprocessors (e.g., Sass), CSS frameworks (e.g., Bootstrap), and JavaScript libraries (e.g., jQuery).",
     "difficulty": "intermediate",
     "skills": [
-      "HTML",
-      "CSS",
       "Sass",
+      "Bootstrap",
+      "jQuery",
       "Responsive web design",
-      "Image and media handling"
+      "Front-end performance optimization"
     ],
     "duration": "2-4 weeks",
     "category": "web-dev",
-    "id": 65,
+    "id": 4,
     "rating": 4.5,
     "students": 0,
     "topics": [
@@ -1554,23 +93,24 @@
     "unlocked": true,
     "saved": false,
     "phase": "Frontend Core",
-    "created_at": "2025-10-18T11:10:43.626833",
+    "created_at": "2025-10-21T02:22:48.655278",
     "source": "ai-generated"
   },
   {
-    "title": "Quiz Game",
-    "description": "Build a quiz game that asks users a series of questions and keeps track of their scores. This project will help reinforce skills in JavaScript, including state management, event handling, and working with timer functions.",
+    "title": "Single-Page Application",
+    "description": "Build a single-page application that fetches data from a RESTful API and updates the user interface dynamically. This project will put your skills in JavaScript frameworks (e.g., React, Angular, Vue.js) to the test, as well as practicing routing, state management, and API integration.",
     "difficulty": "advanced",
     "skills": [
-      "JavaScript",
+      "React",
+      "Angular",
+      "Vue.js",
+      "Routing",
       "State management",
-      "Event handling",
-      "Timer functions",
-      "DOM manipulation"
+      "API integration"
     ],
     "duration": "1-2 months",
     "category": "web-dev",
-    "id": 66,
+    "id": 5,
     "rating": 4.5,
     "students": 0,
     "topics": [
@@ -1579,12 +119,12 @@
     "unlocked": true,
     "saved": false,
     "phase": "Frontend Core",
-    "created_at": "2025-10-18T11:10:43.671573",
+    "created_at": "2025-10-21T02:22:48.669567",
     "source": "ai-generated"
   },
   {
     "title": "To-Do List App",
-    "description": "Build a simple To-Do List app using HTML, CSS, and JavaScript. This project will help reinforce understanding of DOM manipulation, event handling, and local storage. It's a great way to practice building a user interface and handling user interactions.",
+    "description": "Build a simple to-do list application that allows users to add, remove, and edit tasks. This project focuses on implementing event listeners, DOM manipulation, and interacting with the local storage to persist data. It's a great way to practice working with HTML, CSS, and JavaScript.",
     "difficulty": "beginner",
     "skills": [
       "HTML",
@@ -1595,7 +135,7 @@
     ],
     "duration": "1-2 weeks",
     "category": "web-dev",
-    "id": 67,
+    "id": 6,
     "rating": 4.5,
     "students": 0,
     "topics": [
@@ -1604,23 +144,23 @@
     "unlocked": true,
     "saved": false,
     "phase": "Frontend Core",
-    "created_at": "2025-10-18T11:10:43.762124",
+    "created_at": "2025-10-21T02:22:48.939284",
     "source": "ai-generated"
   },
   {
-    "title": "Weather App",
-    "description": "Create a weather app that fetches data from an API and displays it on the screen. This project will help practice working with APIs, handling data, and building a responsive UI. It's a good way to learn about state management and API integration.",
+    "title": "Weather Dashboard",
+    "description": "Create a weather dashboard that displays the current weather and forecast for a given location. This project involves working with APIs, parsing JSON data, and rendering it on the page using JavaScript and HTML/CSS. It's an excellent opportunity to practice fetching data from APIs and handling asynchronous code.",
     "difficulty": "intermediate",
     "skills": [
-      "HTML",
-      "CSS",
       "JavaScript",
-      "API integration",
-      "State management"
+      "APIs",
+      "JSON parsing",
+      "Asynchronous code",
+      "HTML/CSS"
     ],
     "duration": "2-4 weeks",
     "category": "web-dev",
-    "id": 68,
+    "id": 7,
     "rating": 4.5,
     "students": 0,
     "topics": [
@@ -1629,24 +169,23 @@
     "unlocked": true,
     "saved": false,
     "phase": "Frontend Core",
-    "created_at": "2025-10-18T11:10:43.806117",
+    "created_at": "2025-10-21T02:22:48.960802",
     "source": "ai-generated"
   },
   {
-    "title": "E-commerce Website",
-    "description": "Build a basic e-commerce website with a product catalog, shopping cart, and checkout functionality. This project will help reinforce understanding of web development best practices, responsive design, and JavaScript libraries like React or Angular. It's a challenging project that will help solidify your skills and prepare you for more complex projects.",
+    "title": "Single-Page Application (SPA) Clone",
+    "description": "Clone a popular SPA like GitHub or Trello and implement core features such as routing, user authentication, and data storage. This project pushes your skills to the limit by requiring you to work with more complex JavaScript concepts, handle user interactions, and optimize performance. It's an excellent way to practice working with modern web development technologies and frameworks.",
     "difficulty": "advanced",
     "skills": [
-      "HTML",
-      "CSS",
       "JavaScript",
-      "React or Angular",
-      "Responsive design",
-      "Web development best practices"
+      "Routing",
+      "User authentication",
+      "Data storage",
+      "Performance optimization"
     ],
     "duration": "1-2 months",
     "category": "web-dev",
-    "id": 69,
+    "id": 8,
     "rating": 4.5,
     "students": 0,
     "topics": [
@@ -1655,587 +194,150 @@
     "unlocked": true,
     "saved": false,
     "phase": "Frontend Core",
-    "created_at": "2025-10-18T11:10:43.848648",
+    "created_at": "2025-10-21T02:22:48.986356",
     "source": "ai-generated"
   },
   {
-    "title": "Personal Website",
-    "description": "Build a personal website to demonstrate foundational HTML, CSS, and JavaScript skills. Choose a theme, design the layout, and implement interactive elements. This project will help reinforce understanding of front-end development principles and best practices.",
-    "difficulty": "intermediate",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Front-end Development"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 70,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "foundations"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Foundations",
-    "created_at": "2025-10-18T11:11:10.781851",
-    "source": "ai-generated"
-  },
-  {
-    "title": "To-Do List App",
-    "description": "Create a simple to-do list app using JavaScript, HTML, and CSS. Implement features such as adding, removing, and completing tasks. This project will help apply understanding of event handling, DOM manipulation, and JavaScript functions.",
-    "difficulty": "beginner",
-    "skills": [
-      "JavaScript",
-      "HTML",
-      "CSS",
-      "Event Handling",
-      "DOM Manipulation"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 71,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "foundations"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Foundations",
-    "created_at": "2025-10-18T11:11:10.870416",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Web Scraping with Beautiful Soup",
-    "description": "Use Beautiful Soup to extract data from a website and store it in a CSV file. This project will help apply understanding of web scraping, HTML parsing, and data manipulation with Python.",
-    "difficulty": "advanced",
+    "title": "Web Scraper",
+    "description": "Build a simple web scraper to extract data from a website using Python and libraries like BeautifulSoup and Scrapy",
+    "difficulty": "Beginner",
     "skills": [
       "Python",
-      "Beautiful Soup",
-      "Web Scraping",
-      "Data Manipulation"
+      "BeautifulSoup",
+      "Scrapy",
+      "Web Development"
     ],
-    "duration": "1-2 months",
-    "category": "data-science",
-    "id": 72,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "foundations"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Foundations",
-    "created_at": "2025-10-18T11:11:10.938997",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Personal Website Builder",
-    "description": "Build a simple personal website using HTML, CSS, and JavaScript to demonstrate understanding of basic web development concepts. Create a visually appealing layout, implement responsive design, and include a basic contact form.",
-    "difficulty": "beginner",
-    "skills": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Front-end Development"
-    ],
-    "duration": "1-2 weeks",
+    "duration": "1 week",
     "category": "web-dev",
-    "id": 73,
     "rating": 4.5,
     "students": 0,
     "topics": [
-      "foundations"
+      "Python",
+      "BeautifulSoup",
+      "Scrapy"
     ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Foundations",
-    "created_at": "2025-10-18T11:11:11.204773",
+    "id": 9,
+    "created_at": "2025-10-21T02:49:43.347372",
     "source": "ai-generated"
   },
   {
-    "title": "To-Do List App",
-    "description": "Develop a simple to-do list app using JavaScript, HTML, and CSS. Implement features such as adding, removing, and editing tasks, and saving data to local storage. This project will reinforce understanding of event-driven programming and DOM manipulation.",
-    "difficulty": "intermediate",
+    "title": "Simple CTF Challenge",
+    "description": "Create a simple Capture The Flag (CTF) challenge using a web framework like Flask or Django, with basic authentication and encryption",
+    "difficulty": "Beginner",
     "skills": [
-      "JavaScript",
-      "HTML",
-      "CSS",
-      "Front-end Development",
-      "DOM Manipulation"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 74,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "foundations"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Foundations",
-    "created_at": "2025-10-18T11:11:11.254776",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Weather API Integration",
-    "description": "Build a weather application that fetches data from a public API and displays the current weather and forecast. This project will help solidify understanding of API integration, asynchronous programming, and handling external data.",
-    "difficulty": "advanced",
-    "skills": [
-      "JavaScript",
-      "HTML",
-      "CSS",
-      "Front-end Development",
-      "API Integration",
-      "Asynchronous Programming"
-    ],
-    "duration": "1-2 months",
-    "category": "web-dev",
-    "id": 75,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "foundations"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Foundations",
-    "created_at": "2025-10-18T11:11:11.300175",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Simple E-commerce Database",
-    "description": "Create a simple e-commerce database to store products, customers, and orders. This project will help you practice database design, schema creation, and data modeling. You will be using a database management system like MySQL or PostgreSQL.",
-    "difficulty": "beginner",
-    "skills": [
-      "database design",
-      "SQL",
-      "database schema creation"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 76,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "database-integration"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Database Integration",
-    "created_at": "2025-10-20T22:36:53.992689",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Real-time Chat App with Database Storage",
-    "description": "Build a real-time chat app that stores chat logs in a database. This project will help you practice using a database in a real-world application, handling concurrent access, and implementing data persistence. You will be using technologies like Node.js, Express.js, and MongoDB.",
-    "difficulty": "intermediate",
-    "skills": [
-      "real-time chat apps",
-      "database persistence",
-      "concurrent access"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 77,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "database-integration"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Database Integration",
-    "created_at": "2025-10-20T22:36:54.049689",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Recommendation System with Advanced Database Querying",
-    "description": "Create a recommendation system that suggests products based on user behavior and preferences. This project will help you practice advanced database querying, data analysis, and machine learning. You will be using technologies like Python, NumPy, Pandas, and a database management system like PostgreSQL.",
-    "difficulty": "advanced",
-    "skills": [
-      "advanced database querying",
-      "data analysis",
-      "machine learning"
-    ],
-    "duration": "1-2 months",
-    "category": "data-science",
-    "id": 78,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "database-integration"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Database Integration",
-    "created_at": "2025-10-20T22:36:54.117685",
-    "source": "ai-generated"
-  },
-  {
-    "title": "To-Do List App with User Authentication and Database Storage",
-    "description": "Build a web application that allows users to create, read, update, and delete (CRUD) tasks. Integrate user authentication and store task data in a database. This project will help you understand database interaction, user authentication, and web development.",
-    "difficulty": "intermediate",
-    "skills": [
-      "JavaScript",
-      "HTML/CSS",
-      "SQL",
-      "Express.js",
-      "MongoDB"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 79,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "database-integration"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Database Integration",
-    "created_at": "2025-10-20T22:36:54.316339",
-    "source": "ai-generated"
-  },
-  {
-    "title": "E-commerce Website with Product Database and Search Functionality",
-    "description": "Create an e-commerce website that allows users to browse, search, and purchase products. Store product data in a database and implement search functionality using a search algorithm. This project will help you understand database querying, search functionality, and web development.",
-    "difficulty": "advanced",
-    "skills": [
-      "JavaScript",
-      "HTML/CSS",
-      "SQL",
-      "Node.js",
-      "PostgreSQL",
-      "Elasticsearch"
-    ],
-    "duration": "1-2 months",
-    "category": "web-dev",
-    "id": 80,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "database-integration"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Database Integration",
-    "created_at": "2025-10-20T22:36:54.366339",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Personal Finance Manager with Budgeting and Expense Tracking",
-    "description": "Build a web or mobile application that allows users to track their expenses and create a budget. Store expense data in a database and implement data visualization using a library like D3.js. This project will help you understand database interaction, data visualization, and mobile/web development.",
-    "difficulty": "intermediate",
-    "skills": [
-      "JavaScript",
-      "HTML/CSS",
-      "SQL",
-      "React Native|Angular|Vue.js",
-      "MongoDB|Firebase"
-    ],
-    "duration": "2-4 weeks",
-    "category": "mobile-dev|web-dev",
-    "id": 81,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "database-integration"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Database Integration",
-    "created_at": "2025-10-20T22:36:54.399959",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Automated UI Testing with Selenium",
-    "description": "Build a simple web application using Python and Flask, and then create an automated UI test using Selenium WebDriver to validate user interactions and ensure the application behaves as expected.",
-    "difficulty": "intermediate",
-    "skills": [
-      "Selenium",
       "Python",
       "Flask",
-      "Test Automation"
+      "Django",
+      "Web Development",
+      "Security"
     ],
-    "duration": "1-2 weeks",
+    "duration": "2 weeks",
     "category": "web-dev",
-    "id": 82,
     "rating": 4.5,
     "students": 0,
     "topics": [
-      "testing-&-quality"
+      "Python",
+      "Flask",
+      "Django"
     ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Quality",
-    "created_at": "2025-10-20T22:37:20.185338",
+    "id": 10,
+    "created_at": "2025-10-21T02:49:43.366371",
     "source": "ai-generated"
   },
   {
-    "title": "Unit Testing with Jest and Mocking",
-    "description": "Create a simple Node.js application and implement unit tests using Jest, focusing on mocking dependencies and testing edge cases to ensure robust and reliable code.",
-    "difficulty": "intermediate",
+    "title": "Network Reconnaissance Tool",
+    "description": "Build a network reconnaissance tool to scan for open ports and services using Python and libraries like Nmap and Scapy",
+    "difficulty": "Intermediate",
     "skills": [
-      "Jest",
-      "Node.js",
-      "Unit Testing",
-      "Mocking"
+      "Python",
+      "Nmap",
+      "Scapy",
+      "Network Analysis",
+      "Security"
     ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 83,
+    "duration": "2 weeks",
+    "category": "ai-ml",
     "rating": 4.5,
     "students": 0,
     "topics": [
-      "testing-&-quality"
+      "Python",
+      "Nmap",
+      "Scapy"
     ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Quality",
-    "created_at": "2025-10-20T22:37:20.221277",
+    "id": 11,
+    "created_at": "2025-10-21T02:49:43.394368",
     "source": "ai-generated"
   },
   {
-    "title": "End-to-End Testing with Cypress and Docker",
-    "description": "Build a complex web application using a framework like React or Angular, and then create end-to-end tests using Cypress, leveraging Docker containers for a seamless testing environment.",
-    "difficulty": "advanced",
+    "title": "Web Vulnerability Scanner",
+    "description": "Create a web vulnerability scanner to detect common vulnerabilities like SQL injection and cross-site scripting (XSS) using Python and libraries like Selenium and requests",
+    "difficulty": "Intermediate",
     "skills": [
-      "Cypress",
-      "Docker",
-      "End-to-End Testing",
-      "Containerization"
+      "Python",
+      "Selenium",
+      "requests",
+      "Web Development",
+      "Security"
     ],
-    "duration": "2-4 weeks",
+    "duration": "3 weeks",
     "category": "web-dev",
-    "id": 84,
     "rating": 4.5,
     "students": 0,
     "topics": [
-      "testing-&-quality"
+      "Python",
+      "Selenium",
+      "requests"
     ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Quality",
-    "created_at": "2025-10-20T22:37:20.247793",
+    "id": 12,
+    "created_at": "2025-10-21T02:49:43.411368",
     "source": "ai-generated"
   },
   {
-    "title": "Automated Testing Suite for a Small Web Application",
-    "description": "Build an automated testing suite for a simple web application using a testing framework like Jest or Pytest. This project will help reinforce skills in writing unit tests, integration tests, and end-to-end tests. You will also learn about test-driven development (TDD) and behavior-driven development (BDD).",
-    "difficulty": "intermediate",
+    "title": "Simple Machine Learning Model for Predictive Malware Analysis",
+    "description": "Train a simple machine learning model to predict malware based on behavioral features using Python and libraries like Scikit-learn and Pandas",
+    "difficulty": "Intermediate",
     "skills": [
-      "Jest",
-      "Pytest",
-      "Unit Testing",
-      "Integration Testing",
-      "End-to-End Testing"
+      "Python",
+      "Scikit-learn",
+      "Pandas",
+      "Machine Learning",
+      "Data Analysis"
     ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 85,
+    "duration": "4 weeks",
+    "category": "ai-ml",
     "rating": 4.5,
     "students": 0,
     "topics": [
-      "testing-&-quality"
+      "Python",
+      "Scikit-learn",
+      "Pandas"
     ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Quality",
-    "created_at": "2025-10-20T22:37:20.380972",
+    "id": 13,
+    "created_at": "2025-10-21T02:49:43.431376",
     "source": "ai-generated"
   },
   {
-    "title": "Static Code Analysis and Code Review",
-    "description": "Create a project that demonstrates static code analysis and code review using tools like ESLint, Prettier, or SonarQube. This project will help you learn how to write clean, readable, and maintainable code. You will also learn about code formatting, code style, and best practices.",
-    "difficulty": "beginner",
+    "title": "Penetration Testing Framework",
+    "description": "Build a penetration testing framework to automate attacks and vulnerability scanning using Python and libraries like Metasploit and Nmap",
+    "difficulty": "Advanced",
     "skills": [
-      "ESLint",
-      "Prettier",
-      "SonarQube",
-      "Code Formatting",
-      "Code Style"
+      "Python",
+      "Metasploit",
+      "Nmap",
+      "Network Analysis",
+      "Security"
     ],
-    "duration": "1-2 weeks",
+    "duration": "6 weeks",
     "category": "web-dev",
-    "id": 86,
     "rating": 4.5,
     "students": 0,
     "topics": [
-      "testing-&-quality"
+      "Python",
+      "Metasploit",
+      "Nmap"
     ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Quality",
-    "created_at": "2025-10-20T22:37:20.410421",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Bug Triage and Prioritization using Agile Methodologies",
-    "description": "Develop a project that simulates a bug tracking system using Agile methodologies like Scrum or Kanban. This project will help you learn how to identify, track, and prioritize bugs. You will also learn about the importance of continuous integration and continuous deployment (CI/CD).",
-    "difficulty": "advanced",
-    "skills": [
-      "Agile Methodologies",
-      "Scrum",
-      "Kanban",
-      "Bug Tracking",
-      "CI/CD"
-    ],
-    "duration": "1-2 months",
-    "category": "web-dev",
-    "id": 87,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "testing-&-quality"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Testing & Quality",
-    "created_at": "2025-10-20T22:37:20.430517",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Secure Password Storage Project",
-    "description": "Implement a secure password storage system using a hash function (e.g. bcrypt,argon2) and salt. This project will help you understand the importance of password hashing and salting in preventing password cracking attacks. You will build a simple user authentication system and integrate the password storage component.",
-    "difficulty": "intermediate",
-    "skills": [
-      "hashing",
-      "salting",
-      "password storage",
-      "user authentication"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 88,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "security-best-practices"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Security Best Practices",
-    "created_at": "2025-10-20T22:37:38.976264",
-    "source": "ai-generated"
-  },
-  {
-    "title": "OWASP Top 10 Vulnerability Scanner Project",
-    "description": "Create a vulnerability scanner to identify common web application vulnerabilities (e.g. SQL injection, Cross-Site Scripting) listed in the OWASP Top 10. You will use tools like ZAP or Burp Suite to automate the scanning process and integrate it with a web application.",
-    "difficulty": "advanced",
-    "skills": [
-      "vulnerability scanning",
-      "web application security",
-      "OWASP Top 10",
-      "ZAP or Burp Suite"
-    ],
-    "duration": "4-8 weeks",
-    "category": "web-dev",
-    "id": 89,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "security-best-practices"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Security Best Practices",
-    "created_at": "2025-10-20T22:37:39.068520",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Secure Code Review Project",
-    "description": "Conduct a code review of an open-source project (e.g. a web framework or a library) to identify security vulnerabilities and provide recommendations for improvement. This project will help you develop skills in reviewing code for security issues and creating secure code.",
-    "difficulty": "advanced",
-    "skills": [
-      "code review",
-      "secure coding practices",
-      "security vulnerability analysis"
-    ],
-    "duration": "8-12 weeks",
-    "category": "web-dev",
-    "id": 90,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "security-best-practices"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Security Best Practices",
-    "created_at": "2025-10-20T22:37:39.093926",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Basic Web Application Firewall (WAF) Configuration",
-    "description": "Configure a WAF on a web application to protect against common web attacks such as SQL injection and cross-site scripting (XSS). This project will help reinforce understanding of security best practices and hands-on experience with WAF configuration.",
-    "difficulty": "intermediate",
-    "skills": [
-      "Apache ModSecurity",
-      "OWASP Core Rule Set",
-      "Web Application Firewall"
-    ],
-    "duration": "1-2 weeks",
-    "category": "web-dev",
-    "id": 91,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "security-best-practices"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Security Best Practices",
-    "created_at": "2025-10-20T22:37:39.174361",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Penetration Testing with Burp Suite",
-    "description": "Use Burp Suite to perform penetration testing on a web application, identifying vulnerabilities and weaknesses. This project will help reinforce understanding of security best practices and hands-on experience with penetration testing and vulnerability assessment.",
-    "difficulty": "advanced",
-    "skills": [
-      "Burp Suite",
-      "Web Application Penetration Testing",
-      "Vulnerability Assessment"
-    ],
-    "duration": "2-4 weeks",
-    "category": "web-dev",
-    "id": 92,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "security-best-practices"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Security Best Practices",
-    "created_at": "2025-10-20T22:37:39.221883",
-    "source": "ai-generated"
-  },
-  {
-    "title": "Secure Cloud Deployment with AWS IAM and CloudFormation",
-    "description": "Deploy a secure cloud infrastructure on AWS using AWS IAM and CloudFormation. This project will help reinforce understanding of security best practices and hands-on experience with cloud security, IAM, and infrastructure as code.",
-    "difficulty": "advanced",
-    "skills": [
-      "AWS IAM",
-      "AWS CloudFormation",
-      "Cloud Security"
-    ],
-    "duration": "1-2 months",
-    "category": "cloud-dev",
-    "id": 93,
-    "rating": 4.5,
-    "students": 0,
-    "topics": [
-      "security-best-practices"
-    ],
-    "unlocked": true,
-    "saved": false,
-    "phase": "Security Best Practices",
-    "created_at": "2025-10-20T22:37:39.252560",
+    "id": 14,
+    "created_at": "2025-10-21T02:49:43.448372",
     "source": "ai-generated"
   }
 ]

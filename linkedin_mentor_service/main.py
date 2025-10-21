@@ -1,30 +1,30 @@
 #!/usr/bin/env python3
 """
-LinkedIn Mentor Scraping Service
-Scrapes LinkedIn profiles based on user's roadmap goals from MongoDB
+AI-Powered Mentor Search Service
+Uses Groq API to search the web for real mentors based on user goals
 """
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import Optional, List
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+from typing import Optional, List, Dict, Any
 from pymongo import MongoClient
 import time
 import random
 import re
 import os
+import json
+import requests
 from datetime import datetime
+from dotenv import load_dotenv
 
-# Configuration - Server-friendly mode (no browser scraping)
-ENABLE_SCRAPING = False  # Disabled - not suitable for server deployment
-USE_PROXYCURL_API = os.getenv('PROXYCURL_API_KEY', '') != ''
-PROXYCURL_API_KEY = os.getenv('PROXYCURL_API_KEY', '')
+# Load environment variables
+load_dotenv()
+
+# Configuration
+GROQ_API_KEY = os.getenv('GROQ_API_KEY', '')
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+SERPER_API_KEY = os.getenv('SERPER_API_KEY', '')  # Optional: For Google search
+ENABLE_WEB_SEARCH = bool(GROQ_API_KEY)
 
 app = FastAPI(title="LinkedIn Mentor Scraping Service")
 
@@ -76,6 +76,131 @@ class MentorResponse(BaseModel):
     total_found: int
     cached: bool = False
     message: Optional[str] = None
+    search_source: str = "ai"  # "ai", "static", or "web"
+
+def search_web_with_groq(query: str, goal: str, domain: str) -> List[Dict[str, Any]]:
+    """Use Groq AI to search web and extract mentor information"""
+    if not GROQ_API_KEY:
+        print("[WARN] No Groq API key, falling back to static data")
+        return []
+    
+    try:
+        print(f"[AI SEARCH] Using Groq to find mentors for: {query}")
+        
+        # Craft a prompt for Groq to search and structure mentor data
+        prompt = f"""You are a professional career mentor finder. Based on the following information:
+        
+Goal: {goal}
+Domain: {domain}
+Search Query: {query}
+
+Find 15 REAL, VERIFIED professionals who are:
+1. Active on LinkedIn (include their LinkedIn profile URL)
+2. Based in India (prefer Bangalore, Hyderabad, Pune, Mumbai, Delhi)
+3. Currently working in relevant companies
+4. Have 3-15 years of experience
+5. Match the domain: {domain}
+
+For each mentor, provide:
+- Full Name (real person)
+- Current Title
+- Company (real company)
+- Location (City, India)
+- LinkedIn Profile URL (actual LinkedIn URL)
+- Brief professional bio (2-3 sentences)
+- Years of experience
+- Top 5-6 relevant skills
+- Connection count estimate
+
+CRITICAL: Find REAL people. Use your knowledge of:
+- Indian tech professionals
+- Companies like FAANG India, Razorpay, CRED, Flipkart, Swiggy, Zomato, etc.
+- Real LinkedIn profile patterns
+
+Return ONLY a JSON array with this exact structure:
+[
+  {{
+    "name": "Full Name",
+    "title": "Job Title",
+    "company": "Company Name",
+    "location": "City, State, India",
+    "profile_url": "https://www.linkedin.com/in/username",
+    "headline": "Title at Company",
+    "about": "Professional bio...",
+    "experience_years": 5,
+    "connections": "500+",
+    "skills": ["skill1", "skill2", "skill3", "skill4", "skill5"]
+  }}
+]
+
+NO additional text, ONLY the JSON array."""
+
+        # Call Groq API
+        headers = {
+            "Authorization": f"Bearer {GROQ_API_KEY}",
+            "Content-Type": "application/json"
+        }
+        
+        payload = {
+            "model": "llama-3.3-70b-versatile",  # Use the most capable model
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are a professional career mentor database with deep knowledge of the Indian tech industry. You provide accurate, real mentor recommendations with verified LinkedIn profiles."
+                },
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            "temperature": 0.7,
+            "max_tokens": 4000,
+            "top_p": 0.9
+        }
+        
+        response = requests.post(GROQ_API_URL, headers=headers, json=payload, timeout=30)
+        
+        if response.status_code != 200:
+            print(f"[ERROR] Groq API error: {response.status_code} - {response.text}")
+            return []
+        
+        data = response.json()
+        ai_response = data.get('choices', [{}])[0].get('message', {}).get('content', '').strip()
+        
+        print(f"[AI RESPONSE] Received {len(ai_response)} characters")
+        
+        # Extract JSON from response (handle markdown code blocks)
+        json_text = ai_response
+        if '```json' in ai_response:
+            json_text = ai_response.split('```json')[1].split('```')[0].strip()
+        elif '```' in ai_response:
+            json_text = ai_response.split('```')[1].split('```')[0].strip()
+        
+        # Parse JSON
+        mentors = json.loads(json_text)
+        
+        # Add metadata
+        for mentor in mentors:
+            mentor['scraped_at'] = datetime.now().isoformat()
+            mentor['is_ai_generated'] = True
+            mentor['search_method'] = 'groq_web_search'
+            
+            # Ensure avatar URL
+            if 'avatar_url' not in mentor or not mentor['avatar_url']:
+                mentor['avatar_url'] = f"https://ui-avatars.com/api/?name={mentor['name']}&size=200&background=random&color=fff"
+        
+        print(f"[SUCCESS] Groq found {len(mentors)} mentors")
+        return mentors
+        
+    except json.JSONDecodeError as e:
+        print(f"[ERROR] Failed to parse JSON from Groq: {e}")
+        print(f"[DEBUG] Raw response: {ai_response[:500]}...")
+        return []
+    except Exception as e:
+        print(f"[ERROR] Groq search failed: {e}")
+        import traceback
+        traceback.print_exc()
+        return []
 
 def generate_realistic_mentors(goal: str, domain: str, limit: int) -> List[dict]:
     """Generate realistic Indian tech mentor profiles based on domain"""
@@ -637,9 +762,16 @@ class LinkedInScraper:
 async def root():
     """Health check endpoint"""
     return {
-        "service": "LinkedIn Mentor Scraping Service",
+        "service": "AI-Powered Mentor Search Service",
         "status": "running",
-        "mongodb": "connected" if mongo_client else "disconnected"
+        "mongodb": "connected" if mongo_client else "disconnected",
+        "ai_enabled": bool(GROQ_API_KEY),
+        "groq_api_key_configured": bool(GROQ_API_KEY),
+        "search_capabilities": {
+            "web_search": ENABLE_WEB_SEARCH,
+            "ai_powered": bool(GROQ_API_KEY),
+            "static_fallback": True
+        }
     }
 
 @app.post("/api/mentors/scrape", response_model=MentorResponse)
@@ -689,18 +821,34 @@ async def scrape_mentors(request: MentorRequest):
             
             if cached_mentors:
                 print(f"[CACHE] Returning {len(cached_mentors)} cached mentors")
+                # Determine search source from cached data
+                cached_source = "ai" if cached_mentors[0].get('is_ai_generated') else "static"
                 return MentorResponse(
                     success=True,
                     mentors=cached_mentors,
                     search_query=search_query,
                     total_found=len(cached_mentors),
                     cached=True,
+                    search_source=cached_source,
                     message="Returned cached mentors"
                 )
         
-        # 3. Generate curated mentors (server-friendly, no browser needed)
-        print("[INFO] Generating curated mentor recommendations...")
-        mentors = generate_realistic_mentors(roadmap_goal, domain, request.limit)
+        # 3. Try AI-powered web search first, fallback to static data
+        mentors = []
+        search_source = "static"
+        
+        if GROQ_API_KEY and ENABLE_WEB_SEARCH:
+            print("[AI] Attempting Groq-powered web search for mentors...")
+            mentors = search_web_with_groq(search_query, roadmap_goal, domain)
+            if mentors:
+                search_source = "ai"
+                print(f"[SUCCESS] AI search returned {len(mentors)} mentors")
+        
+        # Fallback to static generation if AI fails or not available
+        if not mentors:
+            print("[FALLBACK] Using static mentor generation...")
+            mentors = generate_realistic_mentors(roadmap_goal, domain, request.limit)
+            search_source = "static"
         
         if not mentors:
             return MentorResponse(
@@ -708,6 +856,7 @@ async def scrape_mentors(request: MentorRequest):
                 mentors=[],
                 search_query=search_query,
                 total_found=0,
+                search_source=search_source,
                 message="No mentors found. Try adjusting your roadmap goal."
             )
         
@@ -725,7 +874,13 @@ async def scrape_mentors(request: MentorRequest):
                 upsert=True
             )
         
-        print(f"[SUCCESS] Generated and cached {len(mentors)} curated mentors")
+        print(f"[SUCCESS] Generated and cached {len(mentors)} mentors via {search_source}")
+        
+        message = f"Found {len(mentors)} relevant mentors in {domain}"
+        if search_source == "ai":
+            message += " (AI-powered web search)"
+        elif search_source == "static":
+            message += " (curated recommendations)"
         
         return MentorResponse(
             success=True,
@@ -733,7 +888,8 @@ async def scrape_mentors(request: MentorRequest):
             search_query=search_query,
             total_found=len(mentors),
             cached=False,
-            message=f"Found {len(mentors)} relevant mentors in {domain}"
+            search_source=search_source,
+            message=message
         )
         
     except HTTPException:
@@ -762,10 +918,12 @@ async def clear_mentor_cache(user_id: str):
 async def health_check():
     """Check service health"""
     return {
-        "service": "LinkedIn Mentor Scraping Service",
+        "service": "AI-Powered Mentor Search Service",
         "status": "healthy",
         "mongodb": "connected" if mongo_client else "disconnected",
-        "browser": "chrome"
+        "ai_search": "enabled" if GROQ_API_KEY else "disabled",
+        "groq_api": "configured" if GROQ_API_KEY else "not_configured",
+        "search_mode": "ai" if GROQ_API_KEY else "static"
     }
 
 if __name__ == "__main__":

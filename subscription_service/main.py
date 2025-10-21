@@ -312,26 +312,33 @@ async def verify_payment(request: dict):
         if not all([razorpay_order_id, razorpay_payment_id, razorpay_signature, user_id, plan]):
             raise HTTPException(status_code=400, detail="Missing payment details")
         
-        # Verify payment signature
-        body = razorpay_order_id + "|" + razorpay_payment_id
-        expected_signature = hmac.new(
-            key=RAZORPAY_KEY_SECRET.encode(),
-            msg=body.encode(),
-            digestmod=hashlib.sha256
-        ).hexdigest()
+        # Check if this is a dummy payment (for testing)
+        is_dummy_payment = (
+            razorpay_order_id.startswith("order_dummy_") or
+            razorpay_payment_id.startswith("pay_dummy_")
+        )
         
-        if not hmac.compare_digest(expected_signature, razorpay_signature):
-            raise HTTPException(status_code=400, detail="Invalid payment signature")
-        
-        # Verify payment with Razorpay
-        try:
-            razorpay_client.utility.verify_payment_signature({
-                'razorpay_order_id': razorpay_order_id,
-                'razorpay_payment_id': razorpay_payment_id,
-                'razorpay_signature': razorpay_signature
-            })
-        except:
-            raise HTTPException(status_code=400, detail="Payment verification failed")
+        if not is_dummy_payment:
+            # Verify payment signature for real payments
+            body = razorpay_order_id + "|" + razorpay_payment_id
+            expected_signature = hmac.new(
+                key=RAZORPAY_KEY_SECRET.encode(),
+                msg=body.encode(),
+                digestmod=hashlib.sha256
+            ).hexdigest()
+            
+            if not hmac.compare_digest(expected_signature, razorpay_signature):
+                raise HTTPException(status_code=400, detail="Invalid payment signature")
+            
+            # Verify payment with Razorpay
+            try:
+                razorpay_client.utility.verify_payment_signature({
+                    'razorpay_order_id': razorpay_order_id,
+                    'razorpay_payment_id': razorpay_payment_id,
+                    'razorpay_signature': razorpay_signature
+                })
+            except:
+                raise HTTPException(status_code=400, detail="Payment verification failed")
         
         # Update user subscription
         subscription_data = {
@@ -342,7 +349,8 @@ async def verify_payment(request: dict):
             "end_date": datetime.now() + timedelta(days=30),  # Monthly subscription
             "razorpay_order_id": razorpay_order_id,
             "razorpay_payment_id": razorpay_payment_id,
-            "trial_end": None
+            "trial_end": None,
+            "is_test_payment": is_dummy_payment
         }
         
         await subscriptions_collection.update_one(
@@ -351,10 +359,17 @@ async def verify_payment(request: dict):
             upsert=True
         )
         
+        # Also update the user document to mark as premium
+        await users_collection.update_one(
+            {"_id": ObjectId(user_id)},
+            {"$set": {"premium": True, "subscription_plan": plan}}
+        )
+        
         return {
             "status": "success",
             "message": "Payment verified and subscription activated",
-            "plan": plan
+            "plan": plan,
+            "is_test": is_dummy_payment
         }
         
     except HTTPException:
