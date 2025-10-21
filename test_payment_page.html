@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Payment Page - PathWise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-box {
+            background: #f8f9ff;
+            border: 2px solid #e8eaff;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-box h3 {
+            color: #6366f1;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .info-box code {
+            display: block;
+            background: white;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: #333;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(99, 102, 241, 0.5);
+        }
+
+        .steps {
+            margin: 2rem 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: #6366f1;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h4 {
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content p {
+            color: #666;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            color: #333;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: #6366f1;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Payment Page Created!</h1>
+        <p>A beautiful, secure payment page has been created for PathWise. Here's how to use it:</p>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Start the dashboard</h4>
+                    <p>Run the frontend dashboard to access the payment page</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Navigate to payment page</h4>
+                    <p>Go to <code style="display:inline; background:#f0f2ff; padding:0.25rem 0.5rem; border-radius:4px;">/payment</code> route in your browser</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Complete the payment</h4>
+                    <p>Click the secure payment button to process via Razorpay</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>🚀 Quick Start</h3>
+            <p>Start the dashboard:</p>
+            <code>cd dashboard</code>
+            <code>npm run dev</code>
+            <p style="margin-top:1rem;">Then visit:</p>
+            <code>http://localhost:5173/payment</code>
+        </div>
+
+        <div class="info-box">
+            <h3>✨ Features</h3>
+            <ul class="feature-list">
+                <li>Beautiful gradient background</li>
+                <li>Clean, modern design</li>
+                <li>Secure Razorpay integration</li>
+                <li>Single payment method</li>
+                <li>Trust indicators & security badges</li>
+                <li>Responsive mobile design</li>
+                <li>Smooth animations</li>
+                <li>Auto-redirects to success page</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>🔗 Programmatic Navigation</h3>
+            <p>Navigate to payment page from your code:</p>
+            <code>navigate('/payment', { state: { planId: 'pro' } })</code>
+            <p style="margin-top:1rem;">Or use a simple link:</p>
+            <code>&lt;Link to="/payment"&gt;Upgrade Now&lt;/Link&gt;</code>
+        </div>
+
+        <div class="info-box">
+            <h3>⚙️ Requirements</h3>
+            <ul class="feature-list">
+                <li>Subscription service running on port 8005</li>
+                <li>MongoDB connection active</li>
+                <li>Razorpay keys configured</li>
+                <li>User logged in</li>
+            </ul>
+        </div>
+
+        <a href="http://localhost:5173/payment" class="btn" target="_blank">
+            Open Payment Page →
+        </a>
+
+        <p style="margin-top:2rem; font-size:0.85rem; color:#999; text-align:center;">
+            Make sure the dashboard is running before clicking the button above
+        </p>
+    </div>
+</body>
+</html>
+

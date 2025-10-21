@@ -2,7 +2,12 @@
 
 ## 🎯 Overview
 
-The mentor service now uses **Groq API** to search the web and find REAL mentors based on user goals. This provides much better, more relevant results than static data.
+The mentor service now supports **TWO modes**:
+
+1. **Real Profiles Mode** (Recommended): Uses **Serper API** + **Groq AI** to find actual LinkedIn profiles
+2. **AI-Generated Mode** (Fallback): Uses **Groq API** alone to generate realistic profiles
+
+**For real, original profiles → See [REAL_PROFILES_SETUP.md](./REAL_PROFILES_SETUP.md)**
 
 ## 🔧 Setup Steps
 

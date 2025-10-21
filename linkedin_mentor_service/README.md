@@ -1,52 +1,86 @@
-# LinkedIn Mentor Scraping Service
+# LinkedIn Mentor Service
 
-A dedicated microservice for scraping LinkedIn mentor profiles based on user roadmap goals stored in MongoDB.
+A dedicated microservice for finding mentor profiles based on user roadmap goals.
+
+## 🚀 Quick Start
+
+Want **REAL LinkedIn profiles** matching your users' niche?
+
+👉 **[Read REAL_PROFILES_SETUP.md](./REAL_PROFILES_SETUP.md)** (5 minutes setup)
 
 ## Features
 
-- 🔍 **Smart Scraping**: Uses Selenium + Chrome to scrape LinkedIn profiles via Google search
-- 🎯 **MongoDB Integration**: Fetches user roadmap goals directly from MongoDB
-- 💾 **Intelligent Caching**: Caches scraped mentors in MongoDB to avoid repeated scraping
-- 🤖 **Human-like Behavior**: Random delays and user-agent rotation to avoid detection
-- ⚡ **Fast API**: Built with FastAPI for high performance
+- ✅ **Real Profiles**: Uses Serper API + Groq AI to find actual LinkedIn profiles
+- 🎯 **Niche Matching**: Finds mentors in the exact same field as user's goal
+- 👥 **Mid-Level Focus**: Filters out CEOs/CTOs, focuses on accessible mentors (4-10 years exp)
+- 🇮🇳 **India-Focused**: Prioritizes Indian tech professionals from top companies
+- 💾 **Smart Caching**: Caches results in MongoDB to save API calls
+- 🔄 **Multi-Tier Fallback**: Real profiles → AI-generated → Static curated data
 
 ## Architecture
 
+### With Serper API (Real Profiles - Recommended):
 ```
-User creates roadmap → Saved to MongoDB
-                             ↓
-User visits Mentors page → Triggers scraping
-                             ↓
-Service fetches roadmap goal from MongoDB
-                             ↓
-Scrapes LinkedIn via Google search
-                             ↓
-Caches results in MongoDB → Returns to frontend
+User creates roadmap → MongoDB
+         ↓
+User visits Mentors page
+         ↓
+Service reads roadmap goal → Searches Google (Serper API)
+         ↓
+Finds real LinkedIn URLs → Groq AI extracts data
+         ↓
+Filters mid-level profiles → Caches in MongoDB → Returns real profiles
+```
+
+### Without Serper API (AI-Generated Fallback):
+```
+User creates roadmap → MongoDB
+         ↓
+User visits Mentors page
+         ↓
+Service reads goal → Groq AI generates realistic profiles
+         ↓
+Caches in MongoDB → Returns AI profiles
 ```
 
 ## Installation
 
 ### Prerequisites
 - Python 3.8+
-- Chrome browser installed
 - MongoDB running on localhost:27017
+- (Optional) Serper API key for real profiles
+- (Optional) Groq API key for AI features
 
-### Setup
+### Quick Setup
 
-1. **Install dependencies**:
+**Option 1: With Real Profiles (Recommended)**
+
+```bash
+cd linkedin_mentor_service
+
+# 1. Copy environment template
+copy env.template .env
+
+# 2. Edit .env and add your API keys:
+#    SERPER_API_KEY=your_key_here
+#    GROQ_API_KEY=your_key_here
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Start service
+python main.py
+```
+
+**Option 2: Without API Keys (Static Data)**
+
 ```bash
 cd linkedin_mentor_service
 pip install -r requirements.txt
+python main.py
 ```
 
-2. **Start the service**:
-```bash
-# Windows
-start_server.bat
-
-# Linux/Mac
-python -m uvicorn main:app --reload --host 0.0.0.0 --port 8005
-```
+See **[REAL_PROFILES_SETUP.md](./REAL_PROFILES_SETUP.md)** for detailed setup instructions.
 
 ## API Endpoints
 
@@ -213,6 +247,44 @@ gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker
 ```
 
 3. Consider using proxy rotation for large-scale scraping
+
+## Comparison: Real vs AI-Generated vs Static
+
+| Feature | Real Profiles (Serper) | AI-Generated (Groq) | Static Curated |
+|---------|------------------------|---------------------|----------------|
+| **Profiles** | ✓ Real people on LinkedIn | AI-generated realistic profiles | Consistent curated data |
+| **URLs** | ✓ Actual LinkedIn profiles | Generated profile slugs | Generated profile slugs |
+| **Niche Match** | ✓ Exact match to user goal | ✓ Good match | Basic domain match |
+| **Experience Level** | ✓ Mid-level (4-10 yrs) | ✓ Mid-level (4-10 yrs) | Mixed levels |
+| **Companies** | ✓ Real Indian tech companies | ✓ Real company names | Real company names |
+| **Setup Required** | Serper + Groq API keys | Groq API key only | None |
+| **Cost** | $0-50/month | FREE | FREE |
+| **Best For** | Production, real connections | MVP, testing | Demo, fallback |
+
+## Which Mode Should I Use?
+
+### Use Real Profiles (Serper API) if:
+- ✓ You want users to find and connect with actual people
+- ✓ You have a budget ($0-50/month for MVP)
+- ✓ User trust and authenticity matter
+- ✓ You're building for production
+
+### Use AI-Generated (Groq only) if:
+- ✓ You're in early development/testing
+- ✓ You want realistic-looking data without cost
+- ✓ You need placeholder mentors for UI testing
+- ✓ Users won't actually contact mentors yet
+
+### Use Static Curated if:
+- ✓ You're just trying out the platform
+- ✓ No API keys configured yet
+- ✓ Need a quick demo
+
+## Getting Started
+
+1. **For Real Profiles**: Read [REAL_PROFILES_SETUP.md](./REAL_PROFILES_SETUP.md)
+2. **For AI Mode**: Read [AI_SETUP.md](./AI_SETUP.md)
+3. **For Static Mode**: Just run `python main.py`
 
 ## License
 

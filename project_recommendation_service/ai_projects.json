@@ -339,5 +339,143 @@
     "id": 14,
     "created_at": "2025-10-21T02:49:43.448372",
     "source": "ai-generated"
+  },
+  {
+    "title": "Personal Portfolio Website",
+    "description": "Create a visually appealing personal website that showcases your Styling & UI skills. Build a responsive website using HTML, CSS, and a UI framework like Bootstrap or Tailwind CSS. Include sections for your profile, projects, skills, and contact information.",
+    "difficulty": "intermediate",
+    "skills": [
+      "HTML",
+      "CSS",
+      "UI frameworks (Bootstrap or Tailwind CSS)"
+    ],
+    "duration": "2-4 weeks",
+    "category": "web-dev",
+    "id": 15,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "styling-&-ui"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Styling & UI",
+    "created_at": "2025-10-21T09:51:49.848337",
+    "source": "ai-generated"
+  },
+  {
+    "title": "E-commerce Product Page Redesign",
+    "description": "Take an existing e-commerce product page and redesign it using your Styling & UI skills. Improve the user experience, add interactive elements, and enhance the overall visual appeal. Use CSS preprocessors like Sass or LESS and implement responsive design for different screen sizes.",
+    "difficulty": "advanced",
+    "skills": [
+      "CSS preprocessors (Sass or LESS)",
+      "Responsive design"
+    ],
+    "duration": "2-4 weeks",
+    "category": "web-dev",
+    "id": 16,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "styling-&-ui"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Styling & UI",
+    "created_at": "2025-10-21T09:51:49.885854",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Custom UI Component Library",
+    "description": "Create a custom UI component library using a UI framework like React or Angular. Design and implement reusable UI components like buttons, forms, and cards. Use CSS-in-JS solutions like styled-components or Emotion to enhance the styling. Document your components and share them on a repository for others to use.",
+    "difficulty": "advanced",
+    "skills": [
+      "React or Angular",
+      "CSS-in-JS (styled-components or Emotion)"
+    ],
+    "duration": "4-6 weeks",
+    "category": "web-dev",
+    "id": 17,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "styling-&-ui"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Styling & UI",
+    "created_at": "2025-10-21T09:51:49.917368",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Customize a Pre-built UI Kit",
+    "description": "In this project, you'll choose a pre-built UI kit (e.g., Material-UI, Tailwind CSS) and customize it to fit your brand's style. This involves modifying CSS variables, creating custom components, and experimenting with different typography and layout options to create a visually appealing design.",
+    "difficulty": "beginner",
+    "skills": [
+      "CSS",
+      "UI Kit customization",
+      "Typography management"
+    ],
+    "duration": "1-2 weeks",
+    "category": "web-dev",
+    "id": 18,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "styling-&-ui"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Styling & UI",
+    "created_at": "2025-10-21T09:51:49.966370",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Design a Responsive Website",
+    "description": "Create a fully responsive website using a front-end framework (e.g., React, Angular). Focus on crafting a clean, intuitive UI that adapts to various screen sizes and devices. This project will help you master media queries, layout techniques, and responsive design principles.",
+    "difficulty": "intermediate",
+    "skills": [
+      "HTML",
+      "CSS",
+      "Responsive design",
+      "Front-end frameworks"
+    ],
+    "duration": "2-4 weeks",
+    "category": "web-dev",
+    "id": 19,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "styling-&-ui"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Styling & UI",
+    "created_at": "2025-10-21T09:51:49.984445",
+    "source": "ai-generated"
+  },
+  {
+    "title": "Build a Custom UI Component Library",
+    "description": "In this project, you'll design and implement a custom UI component library using a design system (e.g., Storybook). This involves creating reusable, customizable components that can be used across different applications and platforms. You'll focus on developing a robust design language, crafting accessible components, and testing your library thoroughly.",
+    "difficulty": "advanced",
+    "skills": [
+      "Design systems",
+      "UI component design",
+      "Accessibility",
+      "Storybook"
+    ],
+    "duration": "1-2 months",
+    "category": "web-dev",
+    "id": 20,
+    "rating": 4.5,
+    "students": 0,
+    "topics": [
+      "styling-&-ui"
+    ],
+    "unlocked": true,
+    "saved": false,
+    "phase": "Styling & UI",
+    "created_at": "2025-10-21T09:51:50.001448",
+    "source": "ai-generated"
   }
 ]

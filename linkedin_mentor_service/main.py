@@ -78,128 +78,330 @@ class MentorResponse(BaseModel):
     message: Optional[str] = None
     search_source: str = "ai"  # "ai", "static", or "web"
 
-def search_web_with_groq(query: str, goal: str, domain: str) -> List[Dict[str, Any]]:
-    """Use Groq AI to search web and extract mentor information"""
-    if not GROQ_API_KEY:
-        print("[WARN] No Groq API key, falling back to static data")
+def search_google_for_professionals(query: str, domain: str) -> List[Dict[str, Any]]:
+    """Search Google for professional profiles from various sources using Serper API"""
+    if not SERPER_API_KEY:
+        print("[WARN] No Serper API key, skipping Google search")
         return []
     
     try:
-        print(f"[AI SEARCH] Using Groq to find mentors for: {query}")
+        print(f"[GOOGLE SEARCH] Searching for: {query}")
         
-        # Craft a prompt for Groq to search and structure mentor data
-        prompt = f"""You are a professional career mentor finder. Based on the following information:
+        # Build search query to find mid-level professionals in India from various sources
+        # Include: LinkedIn, GitHub, personal websites, company pages, portfolio sites
+        search_query = f'{query} developer engineer India portfolio OR github OR linkedin -CEO -CTO -founder -director -VP -job'
         
-Goal: {goal}
+        headers = {
+            "X-API-KEY": SERPER_API_KEY,
+            "Content-Type": "application/json"
+        }
+        
+        payload = {
+            "q": search_query,
+            "num": 25,  # Get more results for diverse sources
+            "gl": "in",  # India
+            "hl": "en"
+        }
+        
+        response = requests.post(
+            "https://google.serper.dev/search",
+            headers=headers,
+            json=payload,
+            timeout=10
+        )
+        
+        if response.status_code != 200:
+            print(f"[ERROR] Serper API error: {response.status_code}")
+            return []
+        
+        data = response.json()
+        results = data.get('organic', [])
+        
+        # Extract professional profiles from various sources
+        profiles = []
+        for result in results:
+            link = result.get('link', '')
+            title = result.get('title', '')
+            snippet = result.get('snippet', '')
+            
+            # Filter out job postings, courses, and irrelevant pages
+            skip_keywords = ['job', 'hiring', 'vacancy', 'course', 'tutorial', 'learn', 'training', 'bootcamp', 'salary']
+            if any(keyword in title.lower() or keyword in snippet.lower() for keyword in skip_keywords):
+                continue
+            
+            # Include profiles from various sources
+            valid_sources = [
+                'linkedin.com/in/',
+                'github.com/',
+                'twitter.com/',
+                'medium.com/@',
+                'dev.to/',
+                'portfolio',
+                'about',
+                'profile'
+            ]
+            
+            # Check if it's a profile/portfolio page
+            is_profile = any(source in link.lower() for source in valid_sources)
+            has_name = any(char.isupper() for char in title)  # Title has capital letters (likely a name)
+            
+            if is_profile or has_name:
+                profiles.append({
+                    'url': link.split('?')[0],  # Clean URL
+                    'title': title,
+                    'snippet': snippet,
+                    'source': 'linkedin' if 'linkedin.com' in link else 
+                             'github' if 'github.com' in link else
+                             'twitter' if 'twitter.com' in link else
+                             'medium' if 'medium.com' in link else
+                             'devto' if 'dev.to' in link else
+                             'website'
+                })
+        
+        print(f"[GOOGLE SEARCH] Found {len(profiles)} professional profiles from Google")
+        
+        # Show source breakdown
+        source_count = {}
+        for p in profiles:
+            source = p.get('source', 'other')
+            source_count[source] = source_count.get(source, 0) + 1
+        print(f"[SOURCES] {', '.join([f'{k}: {v}' for k, v in source_count.items()])}")
+        
+        return profiles
+        
+    except Exception as e:
+        print(f"[ERROR] Google search failed: {e}")
+        return []
+
+def extract_profiles_with_groq(google_results: List[Dict], query: str, goal: str, domain: str) -> List[Dict[str, Any]]:
+    """Use Groq AI to extract and structure profile data from Google results (diverse sources)"""
+    if not GROQ_API_KEY or not google_results:
+        return []
+    
+    try:
+        print(f"[AI EXTRACT] Using Groq to extract data from {len(google_results)} profiles")
+        
+        # Prepare search results for AI with source info
+        results_text = "\n".join([
+            f"Source: {r.get('source', 'website')}\nURL: {r['url']}\nTitle: {r['title']}\nSnippet: {r['snippet']}\n"
+            for r in google_results[:20]
+        ])
+        
+        prompt = f"""Based on these REAL professional profiles found via Google search from various sources (LinkedIn, GitHub, personal websites, portfolios), extract structured mentor information.
+
+User Goal: {goal}
 Domain: {domain}
 Search Query: {query}
 
-Find 15 REAL, VERIFIED professionals who are:
-1. Active on LinkedIn (include their LinkedIn profile URL)
-2. Based in India (prefer Bangalore, Hyderabad, Pune, Mumbai, Delhi)
-3. Currently working in relevant companies
-4. Have 3-15 years of experience
-5. Match the domain: {domain}
+Google Search Results (from LinkedIn, GitHub, portfolios, personal websites):
+{results_text}
 
-For each mentor, provide:
-- Full Name (real person)
-- Current Title
-- Company (real company)
-- Location (City, India)
-- LinkedIn Profile URL (actual LinkedIn URL)
-- Brief professional bio (2-3 sentences)
-- Years of experience
-- Top 5-6 relevant skills
-- Connection count estimate
+Extract information for each professional and create a structured JSON array. For each person:
+1. Extract their name from the URL, title, or snippet
+2. Infer their current job title from the context (prefer mid-level: Senior Engineer, Lead Developer, etc.)
+3. Extract or infer company name from the snippet
+4. Set location as Indian tech hub (Bangalore, Hyderabad, Pune, Mumbai, Delhi)
+5. Use the actual URL from search results (keep as-is: LinkedIn, GitHub, portfolio, etc.)
+6. Create a brief professional bio based on the snippet and source
+7. Estimate 4-10 years of experience (mid-level professionals)
+8. List 5-6 relevant technical skills for {domain} based on context
+9. Add social profile URL if found (GitHub, Twitter, LinkedIn, personal website)
+10. Estimate connections as 500+, 1000+, or 1500+ (for social profiles)
 
-CRITICAL: Find REAL people. Use your knowledge of:
-- Indian tech professionals
-- Companies like FAANG India, Razorpay, CRED, Flipkart, Swiggy, Zomato, etc.
-- Real LinkedIn profile patterns
+FILTER OUT:
+- CEOs, CTOs, VPs, Directors, Founders (only mid-level professionals)
+- Profiles not related to {domain}
+- Job postings, courses, tutorials
 
-Return ONLY a JSON array with this exact structure:
+Return ONLY a JSON array (NO markdown, NO explanations):
 [
   {{
     "name": "Full Name",
-    "title": "Job Title",
+    "title": "Senior Software Engineer",
     "company": "Company Name",
-    "location": "City, State, India",
-    "profile_url": "https://www.linkedin.com/in/username",
+    "location": "Bangalore, Karnataka, India",
+    "profile_url": "actual_url_from_search",
     "headline": "Title at Company",
-    "about": "Professional bio...",
-    "experience_years": 5,
-    "connections": "500+",
-    "skills": ["skill1", "skill2", "skill3", "skill4", "skill5"]
+    "about": "Professional bio based on snippet and web presence",
+    "experience_years": 6,
+    "connections": "1000+",
+    "skills": ["skill1", "skill2", "skill3", "skill4", "skill5"],
+    "is_real_profile": true,
+    "source_type": "github OR linkedin OR portfolio OR website"
   }}
-]
+]"""
 
-NO additional text, ONLY the JSON array."""
-
-        # Call Groq API
         headers = {
             "Authorization": f"Bearer {GROQ_API_KEY}",
             "Content-Type": "application/json"
         }
         
         payload = {
-            "model": "llama-3.3-70b-versatile",  # Use the most capable model
+            "model": "llama-3.3-70b-versatile",
             "messages": [
                 {
                     "role": "system",
-                    "content": "You are a professional career mentor database with deep knowledge of the Indian tech industry. You provide accurate, real mentor recommendations with verified LinkedIn profiles."
+                    "content": "You are a data extraction expert. Extract and structure LinkedIn profile information from search results. Return only valid JSON."
                 },
                 {
                     "role": "user",
                     "content": prompt
                 }
             ],
-            "temperature": 0.7,
-            "max_tokens": 4000,
-            "top_p": 0.9
+            "temperature": 0.3,  # Lower for more consistent extraction
+            "max_tokens": 4000
         }
         
         response = requests.post(GROQ_API_URL, headers=headers, json=payload, timeout=30)
         
         if response.status_code != 200:
-            print(f"[ERROR] Groq API error: {response.status_code} - {response.text}")
+            print(f"[ERROR] Groq API error: {response.status_code}")
             return []
         
         data = response.json()
         ai_response = data.get('choices', [{}])[0].get('message', {}).get('content', '').strip()
         
-        print(f"[AI RESPONSE] Received {len(ai_response)} characters")
-        
-        # Extract JSON from response (handle markdown code blocks)
+        # Extract JSON
         json_text = ai_response
         if '```json' in ai_response:
             json_text = ai_response.split('```json')[1].split('```')[0].strip()
         elif '```' in ai_response:
             json_text = ai_response.split('```')[1].split('```')[0].strip()
         
-        # Parse JSON
         mentors = json.loads(json_text)
         
         # Add metadata
         for mentor in mentors:
             mentor['scraped_at'] = datetime.now().isoformat()
-            mentor['is_ai_generated'] = True
-            mentor['search_method'] = 'groq_web_search'
+            mentor['is_ai_generated'] = False
+            mentor['is_real_profile'] = True
+            mentor['search_method'] = 'serper_google_search'
+            mentor['search_source'] = 'real'
             
-            # Ensure avatar URL
+            # Set source badge based on profile URL
+            if 'source_type' not in mentor:
+                url = mentor.get('profile_url', '')
+                if 'github.com' in url:
+                    mentor['source_type'] = 'github'
+                elif 'linkedin.com' in url:
+                    mentor['source_type'] = 'linkedin'
+                elif 'medium.com' in url or 'dev.to' in url:
+                    mentor['source_type'] = 'blog'
+                else:
+                    mentor['source_type'] = 'website'
+            
             if 'avatar_url' not in mentor or not mentor['avatar_url']:
-                mentor['avatar_url'] = f"https://ui-avatars.com/api/?name={mentor['name']}&size=200&background=random&color=fff"
+                mentor['avatar_url'] = f"https://ui-avatars.com/api/?name={mentor['name']}&size=200&background=3b82f6&color=fff"
         
-        print(f"[SUCCESS] Groq found {len(mentors)} mentors")
+        print(f"[SUCCESS] Extracted {len(mentors)} mentor profiles")
         return mentors
         
     except json.JSONDecodeError as e:
-        print(f"[ERROR] Failed to parse JSON from Groq: {e}")
-        print(f"[DEBUG] Raw response: {ai_response[:500]}...")
+        print(f"[ERROR] Failed to parse JSON: {e}")
+        print(f"[DEBUG] Response: {ai_response[:500]}...")
         return []
     except Exception as e:
-        print(f"[ERROR] Groq search failed: {e}")
+        print(f"[ERROR] Groq extraction failed: {e}")
         import traceback
         traceback.print_exc()
+        return []
+
+def search_web_with_groq(query: str, goal: str, domain: str) -> List[Dict[str, Any]]:
+    """
+    Search for real LinkedIn profiles using:
+    1. Serper API (Google search) to find actual profiles
+    2. Groq AI to extract and structure the data
+    """
+    if not GROQ_API_KEY:
+        print("[WARN] No Groq API key, falling back to static data")
+        return []
+    
+    # Try Serper + Groq for REAL profiles from various web sources
+    if SERPER_API_KEY:
+        print("[REAL SEARCH] Using Serper API + Groq AI for real profiles from Google")
+        google_results = search_google_for_professionals(query, domain)
+        
+        if google_results:
+            mentors = extract_profiles_with_groq(google_results, query, goal, domain)
+            if mentors:
+                return mentors
+    
+    # Fallback: Use Groq alone (generates realistic but synthetic profiles)
+    print("[FALLBACK] Using Groq AI to generate realistic profiles")
+    try:
+        prompt = f"""Generate 15 REALISTIC mid-level tech professional profiles for Indian tech industry.
+
+User Goal: {goal}
+Domain: {domain}
+Search Keywords: {query}
+
+Create profiles for professionals who:
+- Are 4-10 years experienced (mid-level, NOT executives)
+- Work at real Indian tech companies (Razorpay, CRED, Flipkart, Swiggy, Zomato, PhonePe, etc.)
+- Match the domain: {domain}
+- Are based in Indian tech hubs
+- Have realistic Indian names
+
+Return ONLY a JSON array:
+[
+  {{
+    "name": "Realistic Indian Name",
+    "title": "Senior Software Engineer or Lead Engineer",
+    "company": "Real Indian Tech Company",
+    "location": "Bangalore, Karnataka, India",
+    "profile_url": "https://www.linkedin.com/in/realistic-profile-slug",
+    "headline": "Title at Company",
+    "about": "Brief professional bio focused on {domain}",
+    "experience_years": 6,
+    "connections": "1000+",
+    "skills": ["skill1", "skill2", "skill3", "skill4", "skill5"]
+  }}
+]"""
+
+        headers = {
+            "Authorization": f"Bearer {GROQ_API_KEY}",
+            "Content-Type": "application/json"
+        }
+        
+        payload = {
+            "model": "llama-3.3-70b-versatile",
+            "messages": [
+                {"role": "system", "content": "You are an expert on the Indian tech industry. Generate realistic mid-level professional profiles. Return only valid JSON."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.7,
+            "max_tokens": 4000
+        }
+        
+        response = requests.post(GROQ_API_URL, headers=headers, json=payload, timeout=30)
+        
+        if response.status_code != 200:
+            return []
+        
+        data = response.json()
+        ai_response = data.get('choices', [{}])[0].get('message', {}).get('content', '').strip()
+        
+        json_text = ai_response
+        if '```json' in ai_response:
+            json_text = ai_response.split('```json')[1].split('```')[0].strip()
+        elif '```' in ai_response:
+            json_text = ai_response.split('```')[1].split('```')[0].strip()
+        
+        mentors = json.loads(json_text)
+        
+        for mentor in mentors:
+            mentor['scraped_at'] = datetime.now().isoformat()
+            mentor['is_ai_generated'] = True
+            mentor['search_method'] = 'groq_generation'
+            
+            if 'avatar_url' not in mentor or not mentor['avatar_url']:
+                mentor['avatar_url'] = f"https://ui-avatars.com/api/?name={mentor['name']}&size=200&background=3b82f6&color=fff"
+        
+        print(f"[SUCCESS] Generated {len(mentors)} realistic profiles")
+        return mentors
+        
+    except Exception as e:
+        print(f"[ERROR] Groq generation failed: {e}")
         return []
 
 def generate_realistic_mentors(goal: str, domain: str, limit: int) -> List[dict]:
@@ -841,8 +1043,9 @@ async def scrape_mentors(request: MentorRequest):
             print("[AI] Attempting Groq-powered web search for mentors...")
             mentors = search_web_with_groq(search_query, roadmap_goal, domain)
             if mentors:
-                search_source = "ai"
-                print(f"[SUCCESS] AI search returned {len(mentors)} mentors")
+                # Check if they are real profiles (from Serper) or AI-generated
+                search_source = mentors[0].get('search_source', 'ai')
+                print(f"[SUCCESS] Search returned {len(mentors)} mentors (source: {search_source})")
         
         # Fallback to static generation if AI fails or not available
         if not mentors:
